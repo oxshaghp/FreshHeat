@@ -26,13 +26,13 @@ function CurdsFood() {
       >
         {/* Left Content */}
         <div className="flex justify-center items-start flex-col gap-3 p-7">
-          <b className="text-[var(--body)] text-[12px] uppercase font-bold">
+          <b className="text-[var(--white)] text-[12px] uppercase font-bold">
             start price $25
           </b>
-          <h3 className="text-[var(--body)] font-bold text-2xl">
+          <h3 className="text-[var(--white)] font-bold text-2xl">
             TODAY SPACIAL FOOD
           </h3>
-          <b className="text-[var(--body)] font-bold text-[12px] uppercase">
+          <b className="text-[var(--white)] font-bold text-[12px] uppercase">
             limits Time Offer
           </b>
           <Button
@@ -64,13 +64,13 @@ function CurdsFood() {
       >
         {/* Left Content */}
         <div className="flex justify-center items-start flex-col gap-3 p-7">
-          <b className="text-[var(--body)] text-[12px] uppercase font-bold">
+          <b className="text-[var(--white)] text-[12px] uppercase font-bold">
             start price $28
           </b>
-          <h3 className="text-[var(--body)] font-bold text-2xl">
+          <h3 className="text-[var(--white)] font-bold text-2xl">
             special chicken roll
           </h3>
-          <b className="text-[var(--body)] font-bold text-[12px] uppercase">
+          <b className="text-[var(--white)] font-bold text-[12px] uppercase">
             limits Time Offer
           </b>
           <Button
@@ -102,13 +102,13 @@ function CurdsFood() {
       >
         {/* Left Content */}
         <div className="flex justify-center items-start flex-col gap-3 p-7">
-          <b className="text-[var(--body)] text-[12px] uppercase font-bold">
+          <b className="text-[var(--white)] text-[12px] uppercase font-bold">
             start price $55
           </b>
-          <h3 className="text-[var(--body)] font-bold text-2xl">
+          <h3 className="text-[var(--white)] font-bold text-2xl">
             SPICY FRIED CHICKEN
           </h3>
-          <b className="text-[var(--body)] font-bold text-[12px] uppercase">
+          <b className="text-[var(--white)] font-bold text-[12px] uppercase">
             limits Time Offer
           </b>
           <Button
