@@ -11,7 +11,6 @@ import FoodMenu from "./pages/FoodMenu/FoodMenu";
 import ShopPage from "./pages/ShopPage/ShopPage";
 import BlogPage from "./pages/BlogPage/BlogPage";
 import ContactPage from "./pages/ContactPage/ContactPage";
-
 function App() {
   return (
     <>
