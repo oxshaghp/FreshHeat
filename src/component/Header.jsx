@@ -10,7 +10,7 @@ import { FaFacebook } from "react-icons/fa";
 function Header() {
   return (
     <header className="hidden lg:block">
-      <div className="bg-[var(--red)] text-white flex items-center justify-evenly min-h-[40px]">
+      <div className="bg-[var(--red)] text-white flex items-center py-2 justify-evenly ">
         <div className="flex items-center justify-between gap-2">
           <span>
             <FaLocationDot />

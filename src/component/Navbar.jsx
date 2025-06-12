@@ -58,7 +58,8 @@ function Navbar() {
             </li>
           </ul>
 
-          <div className="flex items-center justify-center gap-1">
+          <div className="flex items-center justify-center gap-5
+          ">
             <button onClick={handleOpenSearch} className="cursor-pointer">
               <FaSearch />
             </button>
@@ -94,7 +95,7 @@ function Navbar() {
           </div>
         </div>
       </div>
-      <div className="block lg:hidden bg-[var(--black)] text-white relative">
+      <div className="block lg:hidden bg-[var(--black)] text-white relative z-10">
         <div className="flex items-center justify-between px-5 gap-10 h-[100px]">
           <Link to="/">
             <img src="/logoWhite.svg" alt="Logo" />

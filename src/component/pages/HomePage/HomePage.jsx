@@ -1,9 +1,14 @@
 import React from "react";
+import Hero from "./Hero/Hero";
+import PopularFood from "./PopularFood/PopularFood";
+import Offer from "./Offer/Offer";
 
 function HomePage() {
   return (
     <div>
-      <h1>Home Page</h1>
+      <Hero />
+      <PopularFood />
+      <Offer />
     </div>
   );
 }
