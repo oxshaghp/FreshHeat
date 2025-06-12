@@ -10,7 +10,6 @@
 }
 
 :root {
-  --body: #fff;
   --black: #000;
   --white: #fff;
   --red: #eb0029;
@@ -28,4 +27,8 @@
   --title-font: "Epilogue", sans-serif;
   --body-font: "Roboto", sans-serif;
   --icon-font: "Font Awesome 6 Pro";
+}
+
+body {
+  background-color: var(--bg2);
 }
