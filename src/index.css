@@ -1,11 +1,20 @@
 @import "tailwindcss";
 
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+  }
+}
+
 :root {
   --body: #fff;
   --black: #000;
   --white: #fff;
-  --theme: #eb0029;
-  --theme2: #fc791a;
+  --red: #eb0029;
+  --orange: #fc791a;
   --title: #010f1c;
   --dark: #222222;
   --text: #5c6574;
@@ -19,5 +28,4 @@
   --title-font: "Epilogue", sans-serif;
   --body-font: "Roboto", sans-serif;
   --icon-font: "Font Awesome 6 Pro";
-  --color-bg-white: #ffffff;
 }
