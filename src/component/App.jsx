@@ -1,6 +1,6 @@
 import React from "react";
-import Header from "./Header";
-import Navbar from "./Navbar";
+import Header from "./static/Header";
+import Navbar from "./static/Navbar";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage/HomePage";
 import AboutPage from "./pages/About/AboutPage";

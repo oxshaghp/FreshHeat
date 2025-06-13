@@ -1,6 +1,7 @@
 import gsap from "gsap";
 import React, { useEffect, useRef } from "react";
 import { FaLongArrowAltRight } from "react-icons/fa";
+import Button from "../../../static/Button.jsx";
 
 function Offer() {
   const floatingImageRef1 = useRef(null);
@@ -53,14 +54,8 @@ function Offer() {
                 limits Time Offer
               </h5>
             </div>
-            <button className="bg-[var(--red)] px-5 py-2 border border-[var(--red)] cursor-pointer relative text-white transition-all before:content-[''] before:absolute before:right-0 before:w-0 before:h-[50%] before:bottom-0 before:z-0 hover:before:bg-black  hover:before:w-full before:duration-500 after:content-[''] after:absolute after:left-0 after:w-0 after:h-[50%] after:top-0 after:z-0 hover:after:bg-black hover:after:w-full after:duration-500">
-              <span className="relative z-10 flex items-center">
-                ORDER NOW
-                <FaLongArrowAltRight className="inline-block ml-2" />
-              </span>
-            </button>
+            <Button text="order Now" />
           </div>
-
           <div className="relative">
             <img
               src="../Home/offers/offerShape1_4.png"
@@ -89,12 +84,7 @@ function Offer() {
                 limits Time Offer
               </h5>
             </div>
-            <button className="bg-[var(--orange)] px-5 py-2 border border-[var(--orange)] hover:border-[var(--red)] cursor-pointer relative text-white transition-all before:content-[''] before:absolute before:right-0 before:w-0 before:h-[50%] before:bottom-0 before:z-0 hover:before:bg-black  hover:before:w-full before:duration-500 after:content-[''] after:absolute after:left-0 after:w-0 after:h-[50%] after:top-0 after:z-0 hover:after:bg-black hover:after:w-full after:duration-500">
-              <span className="relative z-10 flex items-center">
-                ORDER NOW
-                <FaLongArrowAltRight className="inline-block ml-2" />
-              </span>
-            </button>
+            <Button text="order Now" bg="var(--orange)" hoverBg="var(--red)" />
           </div>
           <div className="relative">
             <img
@@ -124,12 +114,7 @@ function Offer() {
                 limits Time Offer
               </h5>
             </div>
-            <button className="bg-[var(--red)] px-5 py-2 border border-[var(--red)] cursor-pointer relative text-white transition-all before:content-[''] before:absolute before:right-0 before:w-0 before:h-[50%] before:bottom-0 before:z-0 hover:before:bg-black  hover:before:w-full before:duration-500 after:content-[''] after:absolute after:left-0 after:w-0 after:h-[50%] after:top-0 after:z-0 hover:after:bg-black hover:after:w-full after:duration-500">
-              <span className="relative z-10 flex items-center">
-                ORDER NOW
-                <FaLongArrowAltRight className="inline-block ml-2" />
-              </span>
-            </button>
+            <Button text="order Now" />
           </div>
           <div className="relative">
             <img
