@@ -27,22 +27,22 @@ function Header() {
           <h3>Follow Us:</h3>
           <ul className="flex items-center justify-between gap-3">
             <li>
-              <a href="">
+              <a href="#">
                 <FaFacebook />
               </a>
             </li>
             <li>
-              <a href="">
+              <a href="#">
                 <FaTwitter />
               </a>
             </li>
             <li>
-              <a href="">
+              <a href="#">
                 <FaLinkedin />
               </a>
             </li>
             <li>
-              <a href="">
+              <a href="#">
                 <FaInstagram />
               </a>
             </li>
