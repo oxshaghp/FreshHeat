@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { MdFastfood } from "react-icons/md";
 import { TiSocialFacebook, TiSocialLinkedin } from "react-icons/ti";
 import { SlSocialYoutube } from "react-icons/sl";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import gsap from "gsap";
+
 function Chefs() {
   const chef = [
     {
@@ -25,8 +27,29 @@ function Chefs() {
     },
   ];
 
+  const img1Ref = useRef(null);
+  const img2Ref = useRef(null);
+
+  useEffect(() => {
+    gsap.to(img1Ref.current, {
+      y: 20,
+      duration: 3,
+      repeat: -1,
+      yoyo: true,
+      ease: "power1.inOut",
+    });
+
+    gsap.to(img2Ref.current, {
+      x: 20,
+      duration: 3,
+      repeat: -1,
+      yoyo: true,
+      ease: "power1.inOut",
+    });
+  }, []);
+
   return (
-    <section className="w-full h-auto relative mb-36 px-4">
+    <section className="w-full h-auto relative px-4">
       {/* Content Centre */}
       <div className="flex justify-center items-center text-center flex-col w-full px-4">
         <div className="flex justify-center items-center gap-2">
@@ -88,6 +111,14 @@ function Chefs() {
             </div>
           </div>
         ))}
+      </div>
+
+      {/* Two Img Animated */}
+      <div className="hidden xl:block absolute top-5 left-0" ref={img1Ref}>
+        <img src="/public/About/chefs/chefeShape2_1.png" alt="img" />
+      </div>
+      <div className="hidden xl:block absolute right-6 bottom-1" ref={img2Ref}>
+        <img src="/public/About/chefs/chefeShape2_2.png" alt="img" />
       </div>
     </section>
   );
