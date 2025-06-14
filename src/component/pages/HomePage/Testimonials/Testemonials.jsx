@@ -30,10 +30,11 @@ const testimonials = [
 
 function Testemonials() {
   return (
-    <section className="bg-[#181818] relative my-[10rem] flex items-center justify-center w-full h-[750px] p-10">
+    <section className="bg-[#181818] relative my-[5rem] flex items-center justify-center w-full h-[750px] p-10">
       <img
         src="../Home/testomonials/testimonialThumb1_1.png"
-        alt=""
+        alt="decorative background"
+        loading="lazy"
         className="absolute left-0 top-0"
       />
 
@@ -41,11 +42,15 @@ function Testemonials() {
         <div className="mb-[2rem]">
           <h3 className="font-bold text-[var(--orange)] relative flex items-center justify-center text-[1.2rem] gap-2">
             <span>
-              <img src="../Home/titleIcon.svg" alt="" />
+              <img src="../Home/titleIcon.svg" alt="icon left" loading="lazy" />
             </span>
             Testimonials
             <span>
-              <img src="../Home/titleIcon.svg" alt="" />
+              <img
+                src="../Home/titleIcon.svg"
+                alt="icon right"
+                loading="lazy"
+              />
             </span>
           </h3>
           <h1 className="font-bold text-[3rem] capitalize text-white">
@@ -66,7 +71,8 @@ function Testemonials() {
                 <div className="flex items-center gap-5 mb-[1rem]">
                   <img
                     src={t.image}
-                    alt="customer photo"
+                    alt={`${t.name} profile`}
+                    loading="lazy"
                     className="w-[100px] h-[100px] rounded-full object-cover"
                   />
                   <div className="flex flex-col items-start justify-center gap-1">
