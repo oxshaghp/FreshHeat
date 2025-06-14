@@ -5,6 +5,7 @@ function Hero({ title, left, right }) {
     <section className="w-full h-[453px] relative -z-10 ">
       {/* Image Background */}
       <img
+        effect="blur"
         alt="BreadCumb"
         src="/About/breadcumb.jpg"
         className="absolute w-full h-full object-cover bg-no-repeat -z-10"

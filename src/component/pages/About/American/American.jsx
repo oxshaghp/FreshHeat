@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { MdFastfood } from "react-icons/md";
 import gsap from "gsap";
 import Button from "/src/component/static/Button";
-
+import { LazyLoadImage } from "react-lazy-load-image-component";
 function American() {
   const dishLeftRef = useRef(null);
   const dishRightRef = useRef(null);
@@ -59,10 +59,11 @@ function American() {
 
       {/* Icon-bg */}
       <div className="absolute left-1/4 top-10 hidden xl:block">
-        <img
+        <LazyLoadImage
           src="/aboutSection/aboutShape1_2.png"
           alt="Icone"
           className="size-36 object-cover"
+          effect="blur"
         />
       </div>
       <div className="absolute right-1/4 bottom-10 hidden xl:block">
@@ -70,20 +71,23 @@ function American() {
           src="/aboutSection/aboutShape1_2.png"
           alt="Icone"
           className="size-36 object-cover"
+          effect="blur"
         />
       </div>
       <div className="absolute left-0 hidden xl:block">
-        <img
+        <LazyLoadImage
           src="/aboutSection/aboutShape1_1.png"
           alt="Icone"
           className="object-cover"
+          effect="blur"
         />
       </div>
       <div className="absolute right-0 hidden xl:block">
-        <img
+        <LazyLoadImage
           src="/aboutSection/aboutShape1_4.png"
           alt="Icone"
           className="object-cover"
+          effect="blur"
         />
       </div>
 

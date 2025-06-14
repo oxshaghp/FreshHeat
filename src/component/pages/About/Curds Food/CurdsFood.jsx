@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Button from "/src/component/static/Button";
 import gsap from "gsap";
-
+import { LazyLoadImage } from "react-lazy-load-image-component";
 function CurdsFood() {
   useEffect(() => {
     gsap.utils.toArray(".animated-shape").forEach((el) => {
@@ -44,12 +44,20 @@ function CurdsFood() {
 
         {/* Right Content */}
         <div>
-          <img src="/About/offers/offerThumb1_2.png" alt="Thumb" />
+          <LazyLoadImage
+            effect="blur"
+            src="/About/offers/offerThumb1_2.png"
+            alt="Thumb"
+          />
         </div>
 
         {/* Animated Icon (GSAP Animation) */}
         <div className="absolute left-2/5 top-3 animated-shape">
-          <img src="/About/offers/offerShape1_4.png" alt="Shape" />
+          <LazyLoadImage
+            effect="blur"
+            src="/About/offers/offerShape1_4.png"
+            alt="Shape"
+          />
         </div>
       </div>
 
@@ -80,12 +88,20 @@ function CurdsFood() {
 
         {/* Right Content */}
         <div>
-          <img src="/About/offers/offerThumb1_3.png" alt="Thumb" />
+          <LazyLoadImage
+            effect="blur"
+            src="/About/offers/offerThumb1_3.png"
+            alt="Thumb"
+          />
         </div>
 
         {/* Animated Icon (GSAP Animation) */}
         <div className="absolute left-2/5 top-3 animated-shape">
-          <img src="/About/offers/offerShape1_4.png" alt="Shape" />
+          <LazyLoadImage
+            effect="blur"
+            src="/About/offers/offerShape1_4.png"
+            alt="Shape"
+          />
         </div>
       </div>
 
@@ -116,12 +132,20 @@ function CurdsFood() {
 
         {/* Right Content */}
         <div>
-          <img src="/About/offers/offerThumb1_1.png" alt="Thumb" />
+          <LazyLoadImage
+            effect="blur"
+            src="/About/offers/offerThumb1_1.png"
+            alt="Thumb"
+          />
         </div>
 
         {/* Animated Icon (GSAP Animation) */}
         <div className="absolute left-2/5 top-3 animated-shape">
-          <img src="/About/offers/offerShape1_4.png" alt="Shape" />
+          <LazyLoadImage
+            effect="blur"
+            src="/About/offers/offerShape1_4.png"
+            alt="Shape"
+          />
         </div>
       </div>
     </section>
