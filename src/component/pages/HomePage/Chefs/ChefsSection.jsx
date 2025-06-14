@@ -5,6 +5,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { FreeMode, Pagination, Autoplay } from "swiper/modules";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 const chefs = [
   {
@@ -26,15 +28,15 @@ const chefs = [
 
 function ChefsSection() {
   return (
-    <section className="relative w-full py-16 bg-[#f7f4ef]">
+    <section className="relative w-full bg-[#f7f4ef]">
       <div className="mb-10">
         <h3 className="font-bold text-[var(--orange)] mb-1 relative flex items-center justify-center text-[1.2rem] gap-2">
           <span>
-            <img src="../Home/titleIcon.svg" alt="" />
+            <img src="../Home/titleIcon.svg" alt="title icon" loading="lazy" />
           </span>
           OUR CHEFE
           <span>
-            <img src="../Home/titleIcon.svg" alt="" />
+            <img src="../Home/titleIcon.svg" alt="title icon" loading="lazy" />
           </span>
         </h3>
         <h1 className="font-bold text-[3rem] text-center">
@@ -48,20 +50,22 @@ function ChefsSection() {
             key={idx}
             className="bg-white rounded-t-[50%] shadow-md flex flex-col items-center w-[400px] h-[300px] pt-10 pb-8 px-4 relative"
           >
-            <div className="absolute lg:top-[-50%] top-[-30%] flex flex-col items-center ">
-              <img
+            <div className="absolute lg:top-[-50%] top-[-30%] flex flex-col items-center">
+              <LazyLoadImage
                 src={chef.image}
                 alt={chef.name}
+                loading="lazy"
                 className="lg:w-full w-[250px]"
+                effect="blur"
               />
               <div className="absolute left-1/2 -bottom-3 -translate-x-1/2 flex items-center gap-1 group">
-                <button className=" bg-white hover:bg-[var(--red)] cursor-ponter text-[var(--black)] rounded-full w-10 h-10 flex items-center justify-center shadow-md opacity-0 group-hover:opacity-100 transition-all duration-500">
+                <button className=" bg-white hover:bg-[var(--red)] cursor-pointer text-[var(--black)] rounded-full w-10 h-10 flex items-center justify-center shadow-md opacity-0 group-hover:opacity-100 transition-all duration-500">
                   <FaSquareFacebook />
                 </button>
-                <button className=" bg-[var(--orange)] hover:bg-[var(--red)] cursor-ponter text-white rounded-full w-10 h-10 flex items-center justify-center shadow-md ">
+                <button className=" bg-[var(--orange)] hover:bg-[var(--red)] cursor-pointer text-white rounded-full w-10 h-10 flex items-center justify-center shadow-md ">
                   <FaShareAlt />
                 </button>
-                <button className=" bg-white hover:bg-[var(--red)] cursor-ponter text-[var(--black)] rounded-full w-10 h-10 flex items-center justify-center shadow-md opacity-0 group-hover:opacity-100 transition-all duration-500">
+                <button className=" bg-white hover:bg-[var(--red)] cursor-pointer text-[var(--black)] rounded-full w-10 h-10 flex items-center justify-center shadow-md opacity-0 group-hover:opacity-100 transition-all duration-500">
                   <FaLinkedin />
                 </button>
               </div>
@@ -91,7 +95,6 @@ function ChefsSection() {
           grabCursor={true}
           centeredSlides={true}
           loop={true}
-          FreeMode={true}
           autoplay={{
             delay: 2000,
             disableOnInteraction: false,
@@ -99,24 +102,22 @@ function ChefsSection() {
           modules={[FreeMode, Autoplay]}
           className="flex items-center justify-center gap-10 mt-20 mx-auto max-w-[80%] lg:max-w-[70%]"
         >
-          <SwiperSlide>
-            <img src="../Home/chefs/clientLogo1_1.png" alt="client logo" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src="../Home/chefs/clientLogo1_2.png" alt="client logo" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src="../Home/chefs/clientLogo1_3.png" alt="client logo" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src="../Home/chefs/clientLogo1_4.png" alt="client logo" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src="../Home/chefs/clientLogo1_5.png" alt="client logo" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src="../Home/chefs/clientLogo1_6.png" alt="client logo" />
-          </SwiperSlide>
+          {[
+            "clientLogo1_1.png",
+            "clientLogo1_2.png",
+            "clientLogo1_3.png",
+            "clientLogo1_4.png",
+            "clientLogo1_5.png",
+            "clientLogo1_6.png",
+          ].map((img, i) => (
+            <SwiperSlide key={i}>
+              <img
+                src={`../Home/chefs/${img}`}
+                alt={`client logo ${i + 1}`}
+                loading="lazy"
+              />
+            </SwiperSlide>
+          ))}
         </Swiper>
       </div>
     </section>

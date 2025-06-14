@@ -2,9 +2,12 @@ import React, { useRef, useEffect } from "react";
 import { FaHeart, FaShoppingCart } from "react-icons/fa";
 import Button from "../../../static/Button";
 import gsap from "gsap";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 function Bestselling() {
   const floatingImageRef1 = useRef(null);
+
   useEffect(() => {
     if (floatingImageRef1.current) {
       gsap.to(floatingImageRef1.current, {
@@ -16,6 +19,7 @@ function Bestselling() {
       });
     }
   }, []);
+
   const dishes = [
     {
       id: 1,
@@ -48,6 +52,7 @@ function Bestselling() {
       price: 20.99,
     },
   ];
+
   return (
     <section className="w-full p-10 relative min-h-[800px]">
       <img
@@ -55,6 +60,7 @@ function Bestselling() {
         alt=""
         className="absolute left-10 bottom-10 lg:block hidden"
       />
+
       <div className="mb-10 text-center">
         <h3 className="font-bold text-[var(--orange)] mb-1 relative flex items-center justify-center text-[1.2rem] gap-2">
           <span>
@@ -75,14 +81,19 @@ function Bestselling() {
               key={dish.id}
               className="w-[280px] h-[350px] group relative bg-white hover:bg-[url(../backGround/dishesThumbBG.png)] bg-cover bg-center bg-no-repeat transition-all duration-560 rounded-2xl flex flex-col justify-center items-center"
             >
-              <button className="cursor-pointer absolute text-white bg-[var(--red)] top-3 right-3 p-2 rounded-full :">
+              <button className="cursor-pointer absolute text-white bg-[var(--red)] top-3 right-3 p-2 rounded-full">
                 <FaHeart />
               </button>
-              <button className="cursor-pointer absolute text-black bg-[var(--white)] top-[120px] opacity-0 right-3 group-hover:opacity-100 group-hover:top-12 transform transition-all duration-700 p-2 rounded-full ">
+              <button className="cursor-pointer absolute text-black bg-[var(--white)] top-[120px] opacity-0 right-3 group-hover:opacity-100 group-hover:top-12 transform transition-all duration-700 p-2 rounded-full">
                 <FaShoppingCart />
               </button>
 
-              <img src={dish.image} alt="dish image" className="w-[150px]" />
+              <LazyLoadImage
+                src={dish.image}
+                alt={dish.name}
+                effect="blur"
+                className="w-[150px]"
+              />
 
               <div>
                 <h3 className="font-bold text-[1.5rem] text-center mt-2">

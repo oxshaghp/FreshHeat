@@ -12,6 +12,7 @@ import ShopPage from "./pages/ShopPage/ShopPage";
 import BlogPage from "./pages/BlogPage/BlogPage";
 import ContactPage from "./pages/ContactPage/ContactPage";
 import Footer from "./static/Footer";
+import Blog from "./pages/BlogPage/Blog";
 function App() {
   return (
     <>
@@ -25,6 +26,7 @@ function App() {
           <Route path="/ourStory/services" element={<ServicesPage />} />
           <Route path="/ourStory/gallery" element={<GalleryPage />} />
           <Route path="/ourStory/blogs" element={<BlogPage />} />
+          <Route path="/ourStory/blogs/:id" element={<Blog />} />
           <Route path="/foodMenu" element={<FoodMenu />} />
           <Route path="/shop" element={<ShopPage />} />
           <Route path="/contact" element={<ContactPage />} />
