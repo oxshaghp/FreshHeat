@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import Button from "/src/component/static/Button";
-
 function TodaySpicial() {
   const pizzaRef = useRef(null);
   const shape1Ref = useRef(null);

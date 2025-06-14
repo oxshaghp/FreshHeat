@@ -2,7 +2,7 @@ import React from "react";
 import { MdFastfood } from "react-icons/md";
 import { TiSocialFacebook, TiSocialLinkedin } from "react-icons/ti";
 import { SlSocialYoutube } from "react-icons/sl";
-
+import { LazyLoadImage } from "react-lazy-load-image-component";
 function Chefs() {
   const chef = [
     {
@@ -49,7 +49,7 @@ function Chefs() {
           <div key={el.id} className="relative text-center group">
             <div className="relative">
               {/* Chef Img */}
-              <img src={el.img} alt="Img" />
+              <LazyLoadImage src={el.img} alt="Img" effect="blur" />
 
               {/* Red Social Strip */}
               <div
