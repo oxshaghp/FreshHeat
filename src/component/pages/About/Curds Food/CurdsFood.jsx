@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Button from "../../../static/Button";
+import Button from "/src/component/static/Button";
 import gsap from "gsap";
 
 function CurdsFood() {
@@ -37,8 +37,6 @@ function CurdsFood() {
           </b>
           <Button
             text={"ORDER NOW"}
-            w={"w-40"}
-            h={"h-10"}
             bg={"var(--orange)"}
             hoverBg={"var(--black)"}
           />
@@ -75,8 +73,6 @@ function CurdsFood() {
           </b>
           <Button
             text={"ORDER NOW"}
-            w={"w-40"}
-            h={"h-10"}
             bg={"var(--red)"}
             hoverBg={"var(--black)"}
           />
@@ -113,8 +109,6 @@ function CurdsFood() {
           </b>
           <Button
             text={"ORDER NOW"}
-            w={"w-40"}
-            h={"h-10"}
             bg={"var(--red)"}
             hoverBg={"var(--black)"}
           />
