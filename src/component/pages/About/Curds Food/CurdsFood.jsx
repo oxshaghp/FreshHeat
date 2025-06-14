@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Button from "/src/component/Button";
+import Button from "../../../static/Button";
 import gsap from "gsap";
 
 function CurdsFood() {
