@@ -27,7 +27,7 @@ function Text() {
   ];
 
   return (
-    <div
+    <section
       className="overflow-hidden whitespace-nowrap w-full h-auto mb-24 bg-[var(--bg2)]"
       ref={containerRef}
     >
@@ -45,7 +45,7 @@ function Text() {
           </span>
         ))}
       </div>
-    </div>
+    </section>
   );
 }
 

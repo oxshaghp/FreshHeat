@@ -43,8 +43,8 @@ function TodaySpicial() {
   }, []);
 
   return (
-    <div
-      className="mt-40 relative mb-40 w-full h-[600px] bg-bottom bg-cover flex justify-center items-center bg-no-repeat"
+    <section
+      className="mt-40 relative mb-20 w-full h-[600px] bg-bottom bg-cover flex justify-center items-center bg-no-repeat"
       style={{
         backgroundImage: `url('/About/offers/offerBG2_2.jpg')`,
       }}
@@ -90,7 +90,7 @@ function TodaySpicial() {
       >
         <img src="/public/About/offers/ctaShape1_3.png" alt="Img" />
       </div>
-    </div>
+    </section>
   );
 }
 

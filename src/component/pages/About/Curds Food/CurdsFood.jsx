@@ -16,7 +16,7 @@ function CurdsFood() {
   }, []);
 
   return (
-    <div className="relative flex justify-center items-center gap-8 flex-col lg:flex-row bg-[var(--bg2)] pt-12 pb-34 p-5">
+    <section className="relative flex justify-center items-center gap-8 flex-col lg:flex-row bg-[var(--bg2)] pt-12 pb-34 p-5">
       {/* Box 1 */}
       <div
         className="relative object-cover w-auto h-auto flex justify-center items-center gap-3"
@@ -124,7 +124,7 @@ function CurdsFood() {
           <img src="/About/offers/offerShape1_4.png" alt="Shape" />
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 
