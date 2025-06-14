@@ -4,6 +4,7 @@ import CurdsFood from "./Curds Food/CurdsFood";
 import American from "./American/American";
 import Text from "./Text Marquee Animation/Text";
 import TodaySpicial from "./TodaySpicial/TodaySpicial";
+import Chefs from "./Chefs/Chefs";
 function AboutPage() {
   return (
     <div>
@@ -12,6 +13,7 @@ function AboutPage() {
       <American />
       <Text />
       <TodaySpicial />
+      <Chefs />
     </div>
   );
 }

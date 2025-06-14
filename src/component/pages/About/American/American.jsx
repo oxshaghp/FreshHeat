@@ -24,7 +24,7 @@ function American() {
   }, []);
 
   return (
-    <div className="w-full relative bg-[var(--white)] h-[560px] mb-34">
+    <section className="w-full relative bg-[var(--white)] h-[560px] mb-34">
       {/* Content Centre */}
       <div className="absolute flex justify-center items-center text-center flex-col left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 px-4">
         {/* Header Icons and Title */}
@@ -104,7 +104,7 @@ function American() {
           ref={dishRightRef}
         />
       </div>
-    </div>
+    </section>
   );
 }
 

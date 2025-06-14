@@ -2,7 +2,7 @@ import React from "react";
 function Hero({ title, left, right }) {
   return (
     // Main Div
-    <div className="w-full h-[453px] relative -z-10 ">
+    <section className="w-full h-[453px] relative -z-10 ">
       {/* Image Background */}
       <img
         alt="BreadCumb"
@@ -24,7 +24,7 @@ function Hero({ title, left, right }) {
           <div className="text-[var(--red)]">{right}</div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 
