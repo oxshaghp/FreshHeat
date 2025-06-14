@@ -5,6 +5,7 @@ import American from "./American/American";
 import Text from "./Text Marquee Animation/Text";
 import TodaySpicial from "./TodaySpicial/TodaySpicial";
 import Chefs from "./Chefs/Chefs";
+import Customer from "./customer/Customer";
 function AboutPage() {
   return (
     <div>
@@ -14,6 +15,7 @@ function AboutPage() {
       <Text />
       <TodaySpicial />
       <Chefs />
+      <Customer />
     </div>
   );
 }
