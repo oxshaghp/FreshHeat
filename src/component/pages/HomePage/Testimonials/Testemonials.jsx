@@ -13,7 +13,7 @@ const testimonials = [
     stars: 4,
   },
   {
-    name: "Jenny Wilson",
+    name: "Sam Wilson",
     role: "UI/UX Designer",
     image: "../Home/testomonials/testimonialProfile1_1.png",
     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan.",
@@ -58,7 +58,7 @@ function Testemonials() {
           loop={true}
           autoplay={{ delay: 3000, disableOnInteraction: false }}
           modules={[Autoplay]}
-          className="lg:w-[650px] w-[450px] "
+          className="lg:w-[650px] w-[450px] rounded-[20px]"
         >
           {testimonials.map((t, idx) => (
             <SwiperSlide key={idx}>

@@ -11,6 +11,7 @@ import FoodMenu from "./pages/FoodMenu/FoodMenu";
 import ShopPage from "./pages/ShopPage/ShopPage";
 import BlogPage from "./pages/BlogPage/BlogPage";
 import ContactPage from "./pages/ContactPage/ContactPage";
+import Footer from "./static/Footer";
 function App() {
   return (
     <>
@@ -23,11 +24,12 @@ function App() {
           <Route path="/ourStory/chef" element={<ChefPage />} />
           <Route path="/ourStory/services" element={<ServicesPage />} />
           <Route path="/ourStory/gallery" element={<GalleryPage />} />
-          <Route path="/ourStory/blog" element={<BlogPage />} />
+          <Route path="/ourStory/blogs" element={<BlogPage />} />
           <Route path="/foodMenu" element={<FoodMenu />} />
           <Route path="/shop" element={<ShopPage />} />
           <Route path="/contact" element={<ContactPage />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </>
   );

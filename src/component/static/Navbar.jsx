@@ -43,7 +43,7 @@ function Navbar() {
               <Link className="cursor-pointer">Our Story</Link>
               <ul className="hidden group-hover:flex flex-col absolute left-0 top-[120%] bg-white text-black w-[200px] gap-2 z-10 border-t-4 border-[var(--red)] p-2">
                 <li>
-                  <Link to="/ourStory/blog">Blog</Link>
+                  <Link to="/ourStory/blogs">Blog</Link>
                 </li>
                 <li>
                   <Link to="/ourStory/chef">Chef</Link>
@@ -58,8 +58,10 @@ function Navbar() {
             </li>
           </ul>
 
-          <div className="flex items-center justify-center gap-5
-          ">
+          <div
+            className="flex items-center justify-center gap-5
+          "
+          >
             <button onClick={handleOpenSearch} className="cursor-pointer">
               <FaSearch />
             </button>

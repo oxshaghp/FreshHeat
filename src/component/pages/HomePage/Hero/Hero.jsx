@@ -50,11 +50,11 @@ function Hero() {
                 className="absolute left-0 bottom-0 hidden lg:block"
               />
               <div className="flex items-center lg:justify-center">
-                <div className="flex flex-col absolute lg:relative top-[50%] left-[50%] text-center lg:left-0 translate-[-50%] lg:top-0 lg:translate-0">
+                <div className="flex flex-col justify-center items-center absolute lg:relative top-[50%] left-[50%] text-center lg:left-0 translate-[-50%] lg:top-0 lg:translate-0">
                   <h4 className="uppercase text-[var(--orange)] font-bold text-[1rem] lg:text-[1.5rem]">
                     welcome fresheat
                   </h4>
-                  <h1 className="text-[2.5rem] w-full lg:text-[6rem] font-bold uppercase text-white mb-2 lg:w-[700px]">
+                  <h1 className="text-[2rem] w-full lg:text-[5rem] font-bold uppercase text-white mb-2 lg:w-[700px]">
                     {banner.subtitle}
                   </h1>
                   <Button text="Order Now" />
