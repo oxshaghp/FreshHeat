@@ -7,7 +7,8 @@ import Bestselling from "./Bestselling/Bestselling";
 import SpecialFood from "../../static/SpecialFood";
 import ChefsSection from "./Chefs/ChefsSection";
 import Testemonials from "./Testimonials/Testemonials";
-
+import Latest from "./latestNews/Latest";
+import Gallery from "../../static/Gallery";
 function HomePage() {
   return (
     <div>
@@ -19,6 +20,8 @@ function HomePage() {
       <SpecialFood />
       <ChefsSection />
       <Testemonials />
+      <Latest />
+      <Gallery />
     </div>
   );
 }
