@@ -6,6 +6,7 @@ import Text from "./Text Marquee Animation/Text";
 import TodaySpicial from "./TodaySpicial/TodaySpicial";
 import Chefs from "./Chefs/Chefs";
 import Customer from "./customer/Customer";
+import Gallery from "../../static/Gallery";
 function AboutPage() {
   return (
     <div>
@@ -16,6 +17,7 @@ function AboutPage() {
       <TodaySpicial />
       <Chefs />
       <Customer />
+      <Gallery />
     </div>
   );
 }
