@@ -1,9 +1,15 @@
 import React from "react";
-
+import Hero from "../About/Hero/Hero";
+import ContactInfo from "./ContactInfo";
+import FormSection from "./FormSection";
+import MapSec from "./MapSec/MapSec";
 function ContactPage() {
   return (
     <div>
-      <h1>Contact Page</h1>
+      <Hero title={"Contact Us"} left={"Home"} right={"Contact Us"} />
+      <ContactInfo />
+      <FormSection />
+      <MapSec />
     </div>
   );
 }
