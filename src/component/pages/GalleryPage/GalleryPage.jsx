@@ -1,9 +1,11 @@
 import React from "react";
-
+import Hero from "/src/component/static/Hero";
+import Gallary from "./ImgesGallry/Gallary";
 function GalleryPage() {
   return (
     <div>
-      <h1>Gallery Page</h1>
+      <Hero title={"Gallery"} left={"Home"} right={"Gallery"} />
+      <Gallary />
     </div>
   );
 }

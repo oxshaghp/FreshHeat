@@ -1,14 +1,12 @@
 import React, { useRef } from "react";
 import { MdFastfood } from "react-icons/md";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-
-// Swiper
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 
-function Customer() {
+function Customer({ marginTop = "mt-40", marginBottom = "mb-40" }) {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
 
@@ -16,26 +14,28 @@ function Customer() {
     {
       id: 1,
       name: "Mena",
-      des: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.",
+      des: "Contrary to popular belief, Lorem Ipsum is not simply random text...",
       img: "/About/Testimonials/testimonialProfile2_1.png",
     },
     {
       id: 2,
       name: "Franklin",
-      des: "Customer feedback 2: Lorem ipsum dolor sit amet consectetur adipisicing elit. It has roots in a piece of classical Latin literature from 45 BC.",
+      des: "Customer feedback 2: Lorem ipsum dolor sit amet...",
       img: "/About/Testimonials/testimonialProfile2_2.png",
     },
     {
       id: 3,
       name: "Bop",
-      des: "Customer feedback 3: Atque, impedit nobis! Ratione, doloremque deserunt! It has roots in a piece of classical Latin literature.",
+      des: "Customer feedback 3: Atque, impedit nobis!",
       img: "/About/Testimonials/testimonialProfile2_3.png",
     },
   ];
 
   return (
-    <section className="mt-40 mb-40 p-10 pt-14 w-full h-auto relative bg-white">
-      <div className=" flex justify-around items-center flex-wrap-reverse">
+    <section
+      className={`${marginTop} ${marginBottom} p-10 pt-14 w-full h-auto relative bg-white`}
+    >
+      <div className="flex justify-around items-center flex-wrap-reverse">
         {/* Left Content */}
         <div className="max-w-xl w-full px-4">
           {/* Head */}
@@ -47,7 +47,6 @@ function Customer() {
               </b>
               <MdFastfood className="size-4 sm:size-5 text-[var(--orange)]" />
             </div>
-
             <h1 className="text-center sm:text-left break-words font-bold text-[var(--title)] text-2xl sm:text-3xl md:text-5xl leading-tight sm:leading-snug">
               We have lots of happy customer feedback
             </h1>
@@ -55,7 +54,7 @@ function Customer() {
 
           <hr className="my-8 text-sm text-gray-400" />
 
-          {/* Swiper Slider */}
+          {/* Swiper */}
           <Swiper
             modules={[Navigation]}
             navigation={{
@@ -106,8 +105,8 @@ function Customer() {
             ))}
           </Swiper>
 
-          {/* Custom Arrows */}
-          <div className="flex justify-end items-center gap-2  px-2">
+          {/* Arrows */}
+          <div className="flex justify-end items-center gap-2 px-2">
             <button
               ref={prevRef}
               className="text-gray-500 text-xs border border-gray-300 rounded p-1 hover:bg-gray-100 transition"
@@ -123,7 +122,7 @@ function Customer() {
           </div>
         </div>
 
-        {/* Right Content */}
+        {/* Right Image */}
         <div className="max-w-md w-full px-4">
           <LazyLoadImage
             effect="blur"
@@ -133,21 +132,18 @@ function Customer() {
           />
         </div>
       </div>
+
       {/* Decorative Images */}
-      <div>
-        <img
-          src="/public/About/Testimonials/chili-shape.png"
-          alt="img"
-          className="absolute  top-0 right-0 hidden xl:block "
-        />
-      </div>
-      <div>
-        <img
-          src="/public/About/Testimonials/vagetable-shape.png"
-          alt="img"
-          className="absolute bottom-0 left-0  hidden xl:block "
-        />
-      </div>
+      <img
+        src="/public/About/Testimonials/chili-shape.png"
+        alt="img"
+        className="absolute top-0 right-0 hidden xl:block"
+      />
+      <img
+        src="/public/About/Testimonials/vagetable-shape.png"
+        alt="img"
+        className="absolute bottom-0 left-0 hidden xl:block"
+      />
     </section>
   );
 }
