@@ -1,9 +1,9 @@
 import { useParams } from "react-router-dom";
 import useAppContext from "../../context/useAppContext";
-import PageHeroSection from "../../static/PageHeroSection";
 import { FaFacebook, FaLinkedin, FaXTwitter, FaYoutube } from "react-icons/fa6";
 import { FaSearch } from "react-icons/fa";
 import { SlCalender } from "react-icons/sl";
+import Hero from "../../static/Hero";
 
 function Blog() {
   const { id } = useParams();
@@ -15,7 +15,11 @@ function Blog() {
 
   return (
     <section className="bg-[#F4F1EA]">
-      <PageHeroSection text="Blog Details" />
+      <Hero
+        title={"Blog Description"}
+        left={"Home"}
+        right={"Blog Description"}
+      />
       <div className="flex flex-col lg:flex-row justify-center gap-20 my-20 w-[80%] mx-auto ">
         <div className="p-10  ">
           <img

@@ -9,6 +9,7 @@ import ChefsSection from "./Chefs/ChefsSection";
 import Testemonials from "./Testimonials/Testemonials";
 import Latest from "./latestNews/Latest";
 import Gallery from "../../static/Gallery";
+import TextSlider from "../../static/TextSlider";
 function HomePage() {
   return (
     <div>
@@ -18,6 +19,9 @@ function HomePage() {
       <AboutSection />
       <Bestselling />
       <SpecialFood />
+      <TextSlider
+        words={["GRILLED CHICKEN", "CHICKEN BURGER", "PIZZA", "FRESH PASTA"]}
+      />
       <ChefsSection />
       <Testemonials />
       <Latest />

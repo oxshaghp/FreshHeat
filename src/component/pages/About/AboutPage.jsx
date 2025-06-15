@@ -1,20 +1,20 @@
 import React from "react";
-import Hero from "./Hero/Hero";
+import Hero from "../../static/Hero";
 import CurdsFood from "./Curds Food/CurdsFood";
-import American from "./American/American";
-import Text from "./Text Marquee Animation/Text";
-import TodaySpicial from "./TodaySpicial/TodaySpicial";
+import AboutSection from "../../static/AboutSection";
+import SpecialFood from "../../static/SpecialFood";
 import Chefs from "./Chefs/Chefs";
 import Customer from "./customer/Customer";
 import Gallery from "../../static/Gallery";
+import TextSlider from "../../static/TextSlider";
 function AboutPage() {
   return (
     <div>
       <Hero title={"about us"} left={"Home"} right={"About Us"} />
       <CurdsFood />
-      <American />
-      <Text />
-      <TodaySpicial />
+      <AboutSection />
+      <TextSlider words={["GRILLED CHICKEN", "CHICKEN BURGER", "PIZZA", "FRESH PASTA"]} />
+      <SpecialFood />
       <Chefs />
       <Customer />
       <Gallery />
