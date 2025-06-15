@@ -46,10 +46,11 @@ function FormSection() {
       <ToastContainer position="top-center" />
 
       <div className="xl:-ml-24">
-        <LazyLoadImage
+        <img
           effect="blur"
           src="/public/Contact/contactThumb2_1.png"
           alt="Contact"
+          loading="lazy"
         />
       </div>
 
