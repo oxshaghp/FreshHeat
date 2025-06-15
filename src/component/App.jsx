@@ -13,6 +13,7 @@ import BlogPage from "./pages/BlogPage/BlogPage";
 import ContactPage from "./pages/ContactPage/ContactPage";
 import Footer from "./static/Footer";
 import Blog from "./pages/BlogPage/Blog";
+import ChefDeteils from "./pages/ChefsPage/Chefs/ChefDeteils";
 function App() {
   return (
     <>
@@ -30,6 +31,7 @@ function App() {
           <Route path="/foodMenu" element={<FoodMenu />} />
           <Route path="/shop" element={<ShopPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/chef/:name" element={<ChefDeteils />} />
         </Routes>
         <Footer />
       </BrowserRouter>

@@ -1,9 +1,11 @@
 import React from "react";
-
+import Hero from "/src/component/static/Hero";
+import Main from "./Chefs/Main";
 function ChefPage() {
   return (
     <div>
-      <h1>Chef Page</h1>
+      <Hero title={"Chef"} left={"Home"} right={"Chef"} />
+      <Main />
     </div>
   );
 }
