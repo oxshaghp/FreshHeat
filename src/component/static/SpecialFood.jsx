@@ -48,8 +48,8 @@ function SpecialFood() {
         ref={floatingImageRef3}
         loading="lazy"
       />
-      <div className="h-full mx-auto flex flex-wrap-reverse items-center justify-evenly relative">
-        <div className="flex flex-col gap-4">
+      <div className="h-full mx-auto flex flex-wrap-reverse items-center lg:justify-evenly justify-center relative">
+        <div className="flex flex-col lg:p-0 px-5 gap-4">
           <div>
             <h3 className="text-[var(--red)] font-bold text-[1.2rem]">
               WELCOME FRESHEAT

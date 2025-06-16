@@ -1,14 +1,17 @@
-import React, { useState } from "react";
-import { FaSearch } from "react-icons/fa";
+import React, { useContext, useState } from "react";
+import { FaSearch, FaShoppingCart } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { IoMenu } from "react-icons/io5";
 import Button from "./Button";
+import { AnimatePresence } from "framer-motion";
+import Cart from "./Cart";
+import AppContext from "../context/AppContext";
 
 function Navbar() {
   const [openSearch, setOpenSearch] = useState(false);
   const [openSubMenu, setOpenSubMenu] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-
+  const { cartOpen, setCartOpen } = useContext(AppContext);
   const handleOpenSearch = () => {
     setOpenSearch(true);
   };
@@ -19,52 +22,119 @@ function Navbar() {
     <>
       <div className="hidden lg:block bg-[var(--black)] text-white">
         <div className="flex items-center justify-evenly h-[100px]">
-          <Link to="/">
+          <Link
+            className="hover:text-[var(--red)] font-bold transition-all duration-500"
+            to="/"
+          >
             <img src="/logoWhite.svg" alt="Logo" />
           </Link>
 
           <ul className="flex items-center justify-between gap-5">
             <li>
-              <Link to="/">Home</Link>
+              <Link
+                className="hover:text-[var(--red)] font-bold transition-all duration-500"
+                to="/"
+              >
+                Home
+              </Link>
             </li>
             <li>
-              <Link to="/about">About Us</Link>
+              <Link
+                className="hover:text-[var(--red)] font-bold transition-all duration-500"
+                to="/about"
+              >
+                About Us
+              </Link>
             </li>
             <li>
-              <Link to="/foodMenu">Food Menu</Link>
+              <Link
+                className="hover:text-[var(--red)] font-bold transition-all duration-500"
+                to="/foodMenu"
+              >
+                Food Menu
+              </Link>
             </li>
             <li>
-              <Link to="/shop">Shop</Link>
+              <Link
+                className="hover:text-[var(--red)] font-bold transition-all duration-500"
+                to="/shop"
+              >
+                Shop
+              </Link>
             </li>
             <li>
-              <Link to="/contact">Contact Us</Link>
+              <Link
+                className="hover:text-[var(--red)] font-bold transition-all duration-500"
+                to="/contact"
+              >
+                Contact Us
+              </Link>
             </li>
             <li className="relative group">
-              <Link className="cursor-pointer">Our Story</Link>
+              <Link className="hover:text-[var(--red)] font-bold transition-all duration-500 cursor-pointer">Our Story</Link>
               <ul className="hidden group-hover:flex flex-col absolute left-0 top-[100%] bg-white text-black w-[200px] gap-2 z-10 border-t-4 border-[var(--red)] p-2">
                 <li>
-                  <Link to="/ourStory/blogs">Blog</Link>
+                  <Link
+                    className="hover:text-[var(--red)] font-bold transition-all duration-500"
+                    to="/ourStory/blogs"
+                  >
+                    Blog
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/ourStory/chef">Chef</Link>
+                  <Link
+                    className="hover:text-[var(--red)] font-bold transition-all duration-500"
+                    to="/ourStory/chef"
+                  >
+                    Chef
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/ourStory/services">Services</Link>
+                  <Link
+                    className="hover:text-[var(--red)] font-bold transition-all duration-500"
+                    to="/ourStory/services"
+                  >
+                    Services
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/ourStory/gallery">Gallery</Link>
+                  <Link
+                    className="hover:text-[var(--red)] font-bold transition-all duration-500"
+                    to="/ourStory/gallery"
+                  >
+                    Gallery
+                  </Link>
                 </li>
               </ul>
             </li>
           </ul>
 
-          <div
-            className="flex items-center justify-center gap-5
-          "
-          >
+          <div className="flex items-center justify-center gap-5">
             <button onClick={handleOpenSearch} className="cursor-pointer">
               <FaSearch />
             </button>
+            <div>
+              <button
+                onClick={() => setCartOpen((prev) => !prev)}
+                className="cursor-pointer relative"
+              >
+                <FaShoppingCart size={22} />
+              </button>
+              <AnimatePresence>
+                {cartOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -30 }}
+                    transition={{ duration: 0.3 }}
+                    className="absolute right-0 mt-10 z-50"
+                  >
+                    <Cart />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
             <Button text="Order Now" />
           </div>
 
@@ -99,7 +169,10 @@ function Navbar() {
       </div>
       <div className="block lg:hidden bg-[var(--black)] text-white relative z-10">
         <div className="flex items-center justify-between px-5 gap-10 h-[100px]">
-          <Link to="/">
+          <Link
+            className="hover:text-[var(--red)] font-bold transition-all duration-500"
+            to="/"
+          >
             <img src="/logoWhite.svg" alt="Logo" />
           </Link>
 
@@ -109,19 +182,44 @@ function Navbar() {
             } absolute top-full flex flex-col justify-between gap-5 bg-[var(--dark)] w-full p-5 max-h-[700px] overflow-hidden transition-all duration-300`}
           >
             <li>
-              <Link to="/">Home</Link>
+              <Link
+                className="hover:text-[var(--red)] font-bold transition-all duration-500"
+                to="/"
+              >
+                Home
+              </Link>
             </li>
             <li>
-              <Link to="/about">About Us</Link>
+              <Link
+                className="hover:text-[var(--red)] font-bold transition-all duration-500"
+                to="/about"
+              >
+                About Us
+              </Link>
             </li>
             <li>
-              <Link to="/foodMenu">Food Menu</Link>
+              <Link
+                className="hover:text-[var(--red)] font-bold transition-all duration-500"
+                to="/foodMenu"
+              >
+                Food Menu
+              </Link>
             </li>
             <li>
-              <Link to="/shop">Shop</Link>
+              <Link
+                className="hover:text-[var(--red)] font-bold transition-all duration-500"
+                to="/shop"
+              >
+                Shop
+              </Link>
             </li>
             <li>
-              <Link to="/contact">Contact Us</Link>
+              <Link
+                className="hover:text-[var(--red)] font-bold transition-all duration-500"
+                to="/contact"
+              >
+                Contact Us
+              </Link>
             </li>
             <li className="relative group">
               <Link className="cursor-pointer">Our Story</Link>
@@ -139,16 +237,36 @@ function Navbar() {
                 } flex flex-col bg-[var(--dark)] w-full gap-5 pl-5 pt-5 overflow-hidden  transition-all duration-300`}
               >
                 <li>
-                  <Link to="/ourStory/blog">Blog</Link>
+                  <Link
+                    className="hover:text-[var(--red)] font-bold transition-all duration-500"
+                    to="/ourStory/blog"
+                  >
+                    Blog
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/ourStory/chef">Chef</Link>
+                  <Link
+                    className="hover:text-[var(--red)] font-bold transition-all duration-500"
+                    to="/ourStory/chef"
+                  >
+                    Chef
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/ourStory/services">Services</Link>
+                  <Link
+                    className="hover:text-[var(--red)] font-bold transition-all duration-500"
+                    to="/ourStory/services"
+                  >
+                    Services
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/ourStory/gallery">Gallery</Link>
+                  <Link
+                    className="hover:text-[var(--red)] font-bold transition-all duration-500"
+                    to="/ourStory/gallery"
+                  >
+                    Gallery
+                  </Link>
                 </li>
               </ul>
             </li>
