@@ -7,15 +7,15 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
 
-function Gallery() {
-  const images = [
-    "../Home/gallery/galleryThumb1_1.jpg",
-    "../Home/gallery/galleryThumb1_2.jpg",
-    "../Home/gallery/galleryThumb1_3.jpg",
-    "../Home/gallery/galleryThumb1_4.jpg",
-    "../Home/gallery/galleryThumb1_5.jpg",
-  ];
+const images = [
+  "../Home/gallery/galleryThumb1_1.jpg",
+  "../Home/gallery/galleryThumb1_2.jpg",
+  "../Home/gallery/galleryThumb1_3.jpg",
+  "../Home/gallery/galleryThumb1_4.jpg",
+  "../Home/gallery/galleryThumb1_5.jpg",
+];
 
+function Gallery() {
   return (
     <section className="relative mt-10 w-full flex items-center justify-center">
       <Swiper

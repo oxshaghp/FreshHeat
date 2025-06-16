@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 
 const AppContext = createContext();
 
@@ -67,9 +67,12 @@ export const AppProvider = ({ children }) => {
   ];
   const featuredBlogs = blogs.slice(0, 3);
   const menuItems = [];
+  const [cartOpen, setCartOpen] = useState(false);
 
   return (
-    <AppContext.Provider value={{ blogs, menuItems, featuredBlogs }}>
+    <AppContext.Provider
+      value={{ blogs, menuItems, featuredBlogs, cartOpen, setCartOpen }}
+    >
       {children}
     </AppContext.Provider>
   );
