@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { FaSearch, FaShoppingCart } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { IoMenu } from "react-icons/io5";
@@ -6,12 +6,22 @@ import Button from "./Button";
 import { AnimatePresence } from "framer-motion";
 import Cart from "./Cart";
 import AppContext from "../context/AppContext";
-
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { FaUserCircle } from "react-icons/fa";
 function Navbar() {
   const [openSearch, setOpenSearch] = useState(false);
   const [openSubMenu, setOpenSubMenu] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const { cartOpen, setCartOpen } = useContext(AppContext);
+  const auth = getAuth();
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
   const handleOpenSearch = () => {
     setOpenSearch(true);
   };
@@ -71,7 +81,9 @@ function Navbar() {
               </Link>
             </li>
             <li className="relative group">
-              <Link className="hover:text-[var(--red)] font-bold transition-all duration-500 cursor-pointer">Our Story</Link>
+              <Link className="hover:text-[var(--red)] font-bold transition-all duration-500 cursor-pointer">
+                Our Story
+              </Link>
               <ul className="hidden group-hover:flex flex-col absolute left-0 top-[100%] bg-white text-black w-[200px] gap-2 z-10 border-t-4 border-[var(--red)] p-2">
                 <li>
                   <Link
@@ -107,6 +119,29 @@ function Navbar() {
                 </li>
               </ul>
             </li>
+            {user ? (
+              <li>
+                <button
+                  onClick={() => {
+                    signOut(auth);
+                    setUser(null);
+                    window.location.href = "/login";
+                  }}
+                  className="hover:text-[var(--red)] font-bold transition-all duration-500"
+                >
+                  Log Out
+                </button>
+              </li>
+            ) : (
+              <li>
+                <Link
+                  className="hover:text-[var(--red)] font-bold transition-all duration-500"
+                  to="/login"
+                >
+                  LogIn
+                </Link>
+              </li>
+            )}
           </ul>
 
           <div className="flex items-center justify-center gap-5">
@@ -134,7 +169,11 @@ function Navbar() {
                 )}
               </AnimatePresence>
             </div>
-
+            {user && (
+              <Link to="/profile" className="cursor-pointer">
+                <FaUserCircle size={24} />
+              </Link>
+            )}
             <Button text="Order Now" />
           </div>
 
@@ -221,6 +260,34 @@ function Navbar() {
                 Contact Us
               </Link>
             </li>
+            {user && (
+              <Link to="/profile" className="cursor-pointer">
+                <FaUserCircle size={24} />
+              </Link>
+            )}
+            {user ? (
+              <li>
+                <button
+                  onClick={() => {
+                    signOut(auth);
+                    setUser(null);
+                    window.location.href = "/login";
+                  }}
+                  className="hover:text-[var(--red)] font-bold transition-all duration-500"
+                >
+                  Log Out
+                </button>
+              </li>
+            ) : (
+              <li>
+                <Link
+                  className="hover:text-[var(--red)] font-bold transition-all duration-500"
+                  to="/login"
+                >
+                  LogIn
+                </Link>
+              </li>
+            )}
             <li className="relative group">
               <Link className="cursor-pointer">Our Story</Link>
               <button

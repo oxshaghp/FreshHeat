@@ -14,6 +14,9 @@ import ContactPage from "./pages/ContactPage/ContactPage";
 import Footer from "./static/Footer";
 import Blog from "./pages/BlogPage/Blog";
 import ChefDeteils from "./pages/ChefsPage/Chefs/ChefDeteils";
+import LogIn from "./pages/LogIn/LogIn";
+import Profile from "./pages/Peofile/Profile";
+import SignUp from "./pages/SignUp/SignUp";
 function App() {
   return (
     <>
@@ -32,6 +35,9 @@ function App() {
           <Route path="/shop" element={<ShopPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/chef/:name" element={<ChefDeteils />} />
+          <Route path="/login" element={<LogIn />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/signup" element={<SignUp />} />
         </Routes>
         <Footer />
       </BrowserRouter>
