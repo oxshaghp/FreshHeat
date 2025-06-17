@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useMemo } from "react";
 
 const AppContext = createContext();
 
@@ -138,11 +138,87 @@ export const AppProvider = ({ children }) => {
       quantity: 1,
     },
   ];
+
   const [cartOpen, setCartOpen] = useState(false);
+
+  // Cart and discount state
+  const [cartItems, setCartItems] = useState([
+    {
+      id: 1,
+      name: "Chicken Fried Rice",
+      image: "../Menu/menuThumb1_1.png",
+      price: 100.99,
+      quantity: 2,
+    },
+    {
+      id: 2,
+      name: "Chinese Pasta",
+      image: "../Menu/menuThumb1_2.png",
+      price: 15.99,
+      quantity: 1,
+    },
+  ]);
+
+  const [promoCode, setPromoCode] = useState("");
+  const [appliedPromoCode, setAppliedPromoCode] = useState("");
+  const [promoMessage, setPromoMessage] = useState("");
+
+  // Calculate total and discount
+  const total = useMemo(
+    () => cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0),
+    [cartItems]
+  );
+
+  const discount = useMemo(() => {
+    switch (appliedPromoCode.toUpperCase()) {
+      case "DISCOUNT10":
+        return total * 0.1;
+      case "DISCOUNT50":
+        return total * 0.5;
+      default:
+        return 0;
+    }
+  }, [appliedPromoCode, total]);
+
+  const finalTotal = useMemo(() => total - discount, [total, discount]);
+
+  // Handle promo code application
+  const handlePromoCode = () => {
+    const code = promoCode.trim().toUpperCase();
+    if (code === "DISCOUNT10") {
+      setAppliedPromoCode(code);
+      setPromoMessage("Promo code applied! 10% discount.");
+    } else if (code === "DISCOUNT50") {
+      setAppliedPromoCode(code);
+      setPromoMessage("Promo code applied! 50% discount.");
+    } else {
+      setAppliedPromoCode("");
+      setPromoMessage("Invalid promo code.");
+    }
+  };
 
   return (
     <AppContext.Provider
-      value={{ blogs, menuItems, featuredBlogs, cartOpen, setCartOpen }}
+      value={{
+        blogs,
+        menuItems,
+        featuredBlogs,
+        cartOpen,
+        setCartOpen,
+        // Cart and discount related values
+        cartItems,
+        setCartItems,
+        total,
+        discount,
+        finalTotal,
+        promoCode,
+        setPromoCode,
+        appliedPromoCode,
+        setAppliedPromoCode,
+        promoMessage,
+        setPromoMessage,
+        handlePromoCode,
+      }}
     >
       {children}
     </AppContext.Provider>

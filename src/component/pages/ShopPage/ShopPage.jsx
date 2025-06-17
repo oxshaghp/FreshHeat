@@ -1,17 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import Hero from "../../static/Hero";
 import { FaSearch } from "react-icons/fa";
-import "./shopPage.css";
 import gsap from "gsap";
 import useAppContext from "../../context/useAppContext";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { FaStar } from "react-icons/fa6";
-import Button from "../../static/Button";
+
 import { Link } from "react-router-dom";
 
 function ShopPage() {
   const borderRefs = useRef([]);
-  const { menuItems } = useAppContext();
+  const { menuItems, setCartItems, cartItems } = useAppContext();
+
   useEffect(() => {
     borderRefs.current.forEach((el) => {
       if (el) {
@@ -68,6 +68,27 @@ function ShopPage() {
   const handleFilter = () => {
     console.log("Filtering products with price range:", priceRange);
     // Add your filtering logic here
+  };
+
+  const handleAddToCart = (item) => {
+    const existingItem = cartItems.find((cartItem) => cartItem.id === item.id);
+
+    if (existingItem) {
+      // If item already exists in cart, increase quantity
+      setCartItems((prev) =>
+        prev.map((cartItem) =>
+          cartItem.id === item.id
+            ? { ...cartItem, quantity: cartItem.quantity + 1 }
+            : cartItem
+        )
+      );
+    } else {
+      // If item doesn't exist in cart, add it with quantity 1
+      setCartItems((prev) => [...prev, { ...item, quantity: 1 }]);
+    }
+
+    // Show feedback to user (you could add a toast notification here)
+    alert(`${item.name} added to cart!`);
   };
 
   return (
@@ -221,7 +242,10 @@ function ShopPage() {
                     <p className="text-[var(--red)] font-bold my-3 text-[1.2rem]">
                       ${item.price}
                     </p>
-                    <button className="bg-[#FDE5E9] hover:bg-[var(--red)] text-[var(--red)] hover:text-white px-10 py-2 rounded-full transition-all duration-500 cursor-pointer">
+                    <button
+                      className="bg-[#FDE5E9] hover:bg-[var(--red)] text-[var(--red)] hover:text-white px-10 py-2 rounded-full transition-all duration-500 cursor-pointer"
+                      onClick={() => handleAddToCart(item)}
+                    >
                       Add To Cart
                     </button>
                   </div>
