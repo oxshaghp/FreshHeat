@@ -223,6 +223,49 @@ function Navbar() {
             <img src="/logoWhite.svg" alt="Logo" />
           </Link>
 
+          {/* Mobile Login button beside menu button */}
+          <div className="flex items-center gap-3">
+            {user && (
+              <Link to="/profile" className="cursor-pointer">
+                <FaUserCircle size={24} />
+              </Link>
+            )}
+            {!user && (
+              <Link to="/login">
+                <button
+                  className="cursor-pointer relative overflow-hidden group flex items-center justify-center py-2 rounded uppercase font-semibold text-white transition-colors duration-300"
+                  style={{
+                    backgroundColor: "var(--red)",
+                    width: "120px",
+                    height: "48px",
+                  }}
+                >
+                  {/* Top hover overlay */}
+                  <span
+                    className="absolute left-0 top-0 w-0 h-1/2 z-0 transition-all duration-500 group-hover:w-full"
+                    style={{ backgroundColor: "var(--orange)" }}
+                  />
+                  {/* Bottom hover overlay */}
+                  <span
+                    className="absolute right-0 bottom-0 w-0 h-1/2 z-0 transition-all duration-500 group-hover:w-full"
+                    style={{ backgroundColor: "var(--orange)" }}
+                  />
+                  {/* Button content */}
+                  <span className="relative z-10 flex items-center gap-2 text-base">
+                    Login
+                    <FaLongArrowAltRight />
+                  </span>
+                </button>
+              </Link>
+            )}
+            <button
+              className="font-bold text-[2rem] cursor-pointer"
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              <IoMenu />
+            </button>
+          </div>
+
           <ul
             className={`${
               isOpen ? "left-0" : "left-[-100%]"
@@ -273,7 +316,7 @@ function Navbar() {
                 <FaUserCircle size={24} />
               </Link>
             )}
-            {user ? (
+            {user && (
               <li>
                 <Link to="/order">
                   <button
@@ -302,65 +345,6 @@ function Navbar() {
                   </button>
                 </Link>
               </li>
-            ) : (
-              <>
-                <li>
-                  <Link to="/login">
-                    <button
-                      className="cursor-pointer relative overflow-hidden group flex items-center justify-center py-2 rounded uppercase font-semibold text-white transition-colors duration-300"
-                      style={{
-                        backgroundColor: "var(--red)",
-                        width: "120px",
-                        height: "48px",
-                      }}
-                    >
-                      {/* Top hover overlay */}
-                      <span
-                        className="absolute left-0 top-0 w-0 h-1/2 z-0 transition-all duration-500 group-hover:w-full"
-                        style={{ backgroundColor: "var(--orange)" }}
-                      />
-                      {/* Bottom hover overlay */}
-                      <span
-                        className="absolute right-0 bottom-0 w-0 h-1/2 z-0 transition-all duration-500 group-hover:w-full"
-                        style={{ backgroundColor: "var(--orange)" }}
-                      />
-                      {/* Button content */}
-                      <span className="relative z-10 flex items-center gap-2 text-base">
-                        Login
-                        <FaLongArrowAltRight />
-                      </span>
-                    </button>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/signup">
-                    <button
-                      className="cursor-pointer relative overflow-hidden group flex items-center justify-center py-2 rounded uppercase font-semibold text-white transition-colors duration-300"
-                      style={{
-                        backgroundColor: "var(--red)",
-                        width: "120px",
-                        height: "48px",
-                      }}
-                    >
-                      {/* Top hover overlay */}
-                      <span
-                        className="absolute left-0 top-0 w-0 h-1/2 z-0 transition-all duration-500 group-hover:w-full"
-                        style={{ backgroundColor: "var(--orange)" }}
-                      />
-                      {/* Bottom hover overlay */}
-                      <span
-                        className="absolute right-0 bottom-0 w-0 h-1/2 z-0 transition-all duration-500 group-hover:w-full"
-                        style={{ backgroundColor: "var(--orange)" }}
-                      />
-                      {/* Button content */}
-                      <span className="relative z-10 flex items-center gap-2 text-base">
-                        Sign Up
-                        <FaLongArrowAltRight />
-                      </span>
-                    </button>
-                  </Link>
-                </li>
-              </>
             )}
             <li className="relative group">
               <Link className="cursor-pointer">Our Story</Link>
@@ -412,13 +396,6 @@ function Navbar() {
               </ul>
             </li>
           </ul>
-
-          <button
-            className="font-bold text-[2rem] cursor-pointer"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            <IoMenu />
-          </button>
         </div>
       </div>
     </>

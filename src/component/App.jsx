@@ -17,9 +17,14 @@ import ChefDeteils from "./pages/ChefsPage/Chefs/ChefDeteils";
 import LogIn from "./pages/LogIn/LogIn";
 import Profile from "./pages/Peofile/Profile";
 import SignUp from "./pages/SignUp/SignUp";
+import CartPage from "./pages/CartPage/CartPage";
+import CheckoutPage from "./pages/CheckoutPage/CheckoutPage";
+import PaymentMethodPage from "./pages/PaymentMethodPage";
+import { AppProvider } from "./context/AppContext";
+
 function App() {
   return (
-    <>
+    <AppProvider>
       <BrowserRouter>
         <Header />
         <Navbar />
@@ -38,10 +43,13 @@ function App() {
           <Route path="/login" element={<LogIn />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/cart" element={<CartPage />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/payment-method" element={<PaymentMethodPage />} />
         </Routes>
         <Footer />
       </BrowserRouter>
-    </>
+    </AppProvider>
   );
 }
 
