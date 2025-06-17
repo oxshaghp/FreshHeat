@@ -1,5 +1,5 @@
-import { createContext, useState, useMemo } from "react";
-
+import { createContext, useState, useMemo, useEffect } from "react";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
@@ -196,6 +196,15 @@ export const AppProvider = ({ children }) => {
       setPromoMessage("Invalid promo code.");
     }
   };
+  const [currentUser, setCurrentUser] = useState(null);
+  useEffect(() => {
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   return (
     <AppContext.Provider
@@ -218,6 +227,7 @@ export const AppProvider = ({ children }) => {
         promoMessage,
         setPromoMessage,
         handlePromoCode,
+        currentUser,
       }}
     >
       {children}

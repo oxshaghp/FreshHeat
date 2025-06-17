@@ -5,13 +5,23 @@ import gsap from "gsap";
 import useAppContext from "../../context/useAppContext";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { FaStar } from "react-icons/fa6";
-
 import { Link } from "react-router-dom";
-
+import { getAuth } from "firebase/auth";
 function ShopPage() {
   const borderRefs = useRef([]);
   const { menuItems, setCartItems, cartItems } = useAppContext();
 
+  const [filteredItems, setFilteredItems] = useState(menuItems);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentItems = filteredItems.slice(startIndex, endIndex);
+
+  const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
+  const auth = getAuth();
+  const { currentUser } = useAppContext();
   useEffect(() => {
     borderRefs.current.forEach((el) => {
       if (el) {
@@ -26,55 +36,19 @@ function ShopPage() {
     });
   }, []);
 
+  useEffect(() => {
+    setFilteredItems(menuItems);
+  }, [menuItems]);
+
   const [priceRange, setPriceRange] = useState({
     min: 1,
     max: 1000,
   });
 
-  const handleSliderChange = (e) => {
-    const { name, value } = e.target;
-    const numValue = parseInt(value);
-
-    if (name === "min_val") {
-      setPriceRange((prev) => ({
-        ...prev,
-        min: Math.min(numValue, prev.max),
-      }));
-    } else if (name === "max_val") {
-      setPriceRange((prev) => ({
-        ...prev,
-        max: Math.max(numValue, prev.min),
-      }));
-    }
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    const numValue = parseInt(value) || 0;
-
-    if (name === "min_input") {
-      setPriceRange((prev) => ({
-        ...prev,
-        min: Math.min(Math.max(1, numValue), prev.max),
-      }));
-    } else if (name === "max_input") {
-      setPriceRange((prev) => ({
-        ...prev,
-        max: Math.max(Math.min(1000, numValue), prev.min),
-      }));
-    }
-  };
-
-  const handleFilter = () => {
-    console.log("Filtering products with price range:", priceRange);
-    // Add your filtering logic here
-  };
-
   const handleAddToCart = (item) => {
     const existingItem = cartItems.find((cartItem) => cartItem.id === item.id);
 
     if (existingItem) {
-      // If item already exists in cart, increase quantity
       setCartItems((prev) =>
         prev.map((cartItem) =>
           cartItem.id === item.id
@@ -83,20 +57,26 @@ function ShopPage() {
         )
       );
     } else {
-      // If item doesn't exist in cart, add it with quantity 1
       setCartItems((prev) => [...prev, { ...item, quantity: 1 }]);
     }
 
-    // Show feedback to user (you could add a toast notification here)
     alert(`${item.name} added to cart!`);
   };
-
+  if (!currentUser) {
+    return (
+      <div className="min-h-screen flex justify-center items-center text-xl text-[var(--red)] font-bold text-center px-4">
+        Please Log In and Come Back !
+      </div>
+    );
+  }
   return (
     <section>
       <Hero title={"Shop"} left={"Home"} right={"Shop"} />
 
       <div className="flex lg:flex-row flex-col justify-center lg:w-[70%] w-full mx-auto mt-30">
+        {/* Sidebar */}
         <div className="lg:w-[500px] w-full mx-auto">
+          {/* Search */}
           <div className="bg-white lg:w-[400px] w-[95%] mx-auto min-h-[200px] p-7 rounded-2xl mb-10">
             <h1 className="relative text-2xl after:content-[''] after:absolute after:w-[20%] after:h-[2px] after:bg-[var(--red)] after:left-0 after:-bottom-1 font-bold mb-5">
               Search
@@ -124,135 +104,107 @@ function ShopPage() {
             </form>
           </div>
 
+          {/* Price Filter */}
           <div className="bg-white lg:w-[400px] w-[95%] mx-auto min-h-[200px] p-7 rounded-2xl mb-10">
             <h1 className="relative text-2xl after:content-[''] after:absolute after:w-[20%] after:h-[2px] after:bg-[var(--red)] after:left-0 after:-bottom-1 font-bold mb-5">
               Filter By Price
             </h1>
 
-            {/* Price Range Slider */}
-            <div className="relative w-full bg-[var(--dark)] h-2 rounded-md mb-6">
-              <span
-                className="absolute top-0 h-full bg-[var(--red)] rounded-full"
-                style={{
-                  left: `${((priceRange.min - 1) / (1000 - 1)) * 100}%`,
-                  right: `${100 - ((priceRange.max - 1) / (1000 - 1)) * 100}%`,
-                }}
-              ></span>
+            <div className="relative w-full mb-6">
               <input
                 type="range"
-                name="min_val"
                 min={1}
                 max={1000}
-                step={1}
-                value={priceRange.min}
-                onChange={handleSliderChange}
-                className="range-slider"
-              />
-              <input
-                type="range"
-                name="max_val"
-                min={1}
-                max={1000}
-                step={1}
                 value={priceRange.max}
-                onChange={handleSliderChange}
-                className="range-slider"
+                onChange={(e) => {
+                  const newMax = parseInt(e.target.value);
+                  setPriceRange((prev) => ({ ...prev, max: newMax }));
+
+                  const filtered = menuItems.filter(
+                    (item) => item.price >= 1 && item.price <= newMax
+                  );
+                  setFilteredItems(filtered);
+                }}
+                className="w-full h-2 bg-[var(--dark)] rounded-full appearance-none cursor-pointer"
+                style={{
+                  background: `linear-gradient(to right, var(--red) 0%, var(--red) ${
+                    ((priceRange.max - 1) / 999) * 100
+                  }%, #ddd ${((priceRange.max - 1) / 999) * 100}%, #ddd 100%)`,
+                }}
               />
-              <div className=""></div>
-              <div className=""></div>
-            </div>
-            {/* Price Display and Filter Button */}
-            <div className="flex flex-col gap-4">
-              <div className="flex items-center">
-                Price:
-                <div className="flex items-center">
-                  <span className="w-[40px] h-[40px] rounded-l-sm text-[#777] text-[14px] border border-[#eee] flex items-center justify-center">
-                    $
-                  </span>
-                  <input
-                    type="text"
-                    name="min_input"
-                    value={priceRange.min}
-                    onChange={handleInputChange}
-                    className="border border-[#eee] w-[60px] h-[40px] focus:outline-none px-2 text-[#777]"
-                  />
-                </div>
-                <div className="flex items-center">
-                  <span className="w-[40px] h-[40px] rounded-l-sm text-[#777] text-[14px] border border-[#eee] flex items-center justify-center">
-                    $
-                  </span>
-                  <input
-                    type="text"
-                    name="max_input"
-                    value={priceRange.max}
-                    onChange={handleInputChange}
-                    className="border border-[#eee] w-[60px] h-[40px] focus:outline-none px-2 text-[#777]"
-                  />
-                </div>
+              <div className="flex justify-between mt-2 text-sm text-gray-600">
+                <span>1$</span>
+                <span>{priceRange.max}$</span>
+                <span>1000$</span>
               </div>
-              <button
-                onClick={handleFilter}
-                className="px-4 py-2 bg-[var(--red)] text-white rounded-lg hover:bg-red-700 transition-colors duration-200 font-bold tracking-wide"
-              >
-                FILTER
-              </button>
             </div>
           </div>
         </div>
-        <div className="relative flex items-center justify-center gap-10 lg:gap-10 flex-wrap ">
-          {menuItems.map((item, idx) => (
-            <div key={item.id}>
-              <div className="relative w-[250px] h-[300px] flex flex-col items-center mb-20">
-                <div className="absolute top-0 -translate-y-[50%] z-20 w-[180px] h-[180px] flex items-center justify-center">
-                  <div
-                    ref={(el) => (borderRefs.current[idx] = el)}
-                    className="absolute inset-0 rounded-full border-2 border-dashed border-[var(--red)]"
-                  ></div>
-                  <LazyLoadImage
-                    src={item.image}
-                    alt={item.name}
-                    effect="blur"
-                    className="w-[160px]"
-                  />
-                </div>
-                <div className="bg-white w-[280px] h-[280px] rounded-2xl p-5 relative flex flex-col items-center z-10">
-                  <div className="absolute bottom-5 text-center flex flex-col items-center justify-center gap-2">
-                    <div>
-                      <Link className="font-bold capitalize text-[1.2rem] hover:text-[var(--red)] trasition-all duration-500">
-                        {item.name}
-                      </Link>
-                      <div className="flex items-center justify-center gap-2">
-                        <span className="text-[var(--orange)]">
-                          <FaStar />
-                        </span>
-                        <span className="text-[var(--orange)]">
-                          <FaStar />
-                        </span>
-                        <span className="text-[var(--orange)]">
-                          <FaStar />
-                        </span>
-                        <span className="text-[var(--orange)]">
-                          <FaStar />
-                        </span>
-                        <span className="text-[var(--orange)]">
-                          <FaStar />
-                        </span>
+
+        {/* Products + Pagination */}
+        <div className="mt-20 md:mt-0 relative flex flex-col items-center gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-13">
+            {currentItems.map((item, idx) => (
+              <div key={item.id}>
+                <div className="relative w-[250px] h-[300px] flex flex-col items-center mb-20">
+                  <div className="absolute top-0 -translate-y-[50%] z-20 w-[180px] h-[180px] flex items-center justify-center">
+                    <div
+                      ref={(el) => (borderRefs.current[idx] = el)}
+                      className="absolute inset-0 rounded-full border-2 border-dashed border-[var(--red)]"
+                    ></div>
+                    <LazyLoadImage
+                      src={item.image}
+                      alt={item.name}
+                      effect="blur"
+                      className="w-[160px]"
+                    />
+                  </div>
+                  <div className="bg-white w-[280px] h-[280px] rounded-2xl p-5 relative flex flex-col items-center z-10">
+                    <div className="absolute bottom-5 text-center flex flex-col items-center justify-center gap-2">
+                      <div>
+                        <Link className="font-bold capitalize text-[1.2rem] hover:text-[var(--red)] trasition-all duration-500">
+                          {item.name}
+                        </Link>
+                        <div className="flex items-center justify-center gap-2">
+                          {[...Array(5)].map((_, i) => (
+                            <span key={i} className="text-[var(--orange)]">
+                              <FaStar />
+                            </span>
+                          ))}
+                        </div>
                       </div>
+                      <p className="text-[var(--red)] font-bold my-3 text-[1.2rem]">
+                        ${item.price}
+                      </p>
+                      <button
+                        className="bg-[#FDE5E9] hover:bg-[var(--red)] text-[var(--red)] hover:text-white px-10 py-2 rounded-full transition-all duration-500 cursor-pointer"
+                        onClick={() => handleAddToCart(item)}
+                      >
+                        Add To Cart
+                      </button>
                     </div>
-                    <p className="text-[var(--red)] font-bold my-3 text-[1.2rem]">
-                      ${item.price}
-                    </p>
-                    <button
-                      className="bg-[#FDE5E9] hover:bg-[var(--red)] text-[var(--red)] hover:text-white px-10 py-2 rounded-full transition-all duration-500 cursor-pointer"
-                      onClick={() => handleAddToCart(item)}
-                    >
-                      Add To Cart
-                    </button>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+
+          {/* Pagination */}
+          <div className="mb-20 -mt-16 flex justify-center items-center gap-2 flex-wrap">
+            {Array.from({ length: totalPages }, (_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentPage(index + 1)}
+                className={`px-4 py-2 rounded-md ${
+                  currentPage === index + 1
+                    ? "bg-[var(--red)] text-white"
+                    : "bg-gray-200 text-gray-700"
+                } transition-all duration-300`}
+              >
+                {index + 1}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </section>

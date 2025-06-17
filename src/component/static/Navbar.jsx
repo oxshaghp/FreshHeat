@@ -28,6 +28,16 @@ function Navbar() {
   const handleCloseSearch = () => {
     setOpenSearch(false);
   };
+  const handleLogout = () => {
+    auth
+      .signOut()
+      .then(() => {
+        setUser(null);
+      })
+      .catch((error) => {
+        console.error("Logout error:", error);
+      });
+  };
   return (
     <>
       <div className="hidden lg:block bg-[var(--black)] text-white">
@@ -119,6 +129,16 @@ function Navbar() {
                 </li>
               </ul>
             </li>
+            {user && (
+              <li>
+                <button
+                  onClick={handleLogout}
+                  className="hover:text-[var(--red)] font-bold transition-all duration-500"
+                >
+                  Logout
+                </button>
+              </li>
+            )}
           </ul>
 
           <div className="flex items-center justify-center gap-5">
@@ -152,7 +172,9 @@ function Navbar() {
               </Link>
             )}
             {user ? (
-              <Button text="Order Now" link="/shop" />
+              <div>
+                <Button text="Order Now" link="/shop" />
+              </div>
             ) : (
               <div className="flex items-center gap-3">
                 <Link to="/login">
@@ -393,6 +415,16 @@ function Navbar() {
                     Gallery
                   </Link>
                 </li>
+                {user && (
+                  <li>
+                    <button
+                      onClick={handleLogout}
+                      className="hover:text-[var(--red)] font-bold transition-all duration-500"
+                    >
+                      Logout
+                    </button>
+                  </li>
+                )}
               </ul>
             </li>
           </ul>
