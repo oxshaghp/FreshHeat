@@ -68,7 +68,7 @@ function Hero() {
                   <h1 className="text-[2rem] w-full lg:text-[5rem] font-bold uppercase text-white mb-2 lg:w-[700px]">
                     {banner.subtitle}
                   </h1>
-                  <Button text="Order Now" />
+                  <Button text="Order Now" link="/shop" />
                 </div>
                 <LazyLoadImage
                   src={banner.image}

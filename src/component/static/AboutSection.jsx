@@ -61,7 +61,7 @@ function AboutSection() {
           readable content of a page when looking at its layout. This is a
           well-established fact.
         </p>
-        <Button text="ORDER NOW" />
+        <Button text="Order Now" link="/shop" />
       </div>
 
       {/* right image side */}

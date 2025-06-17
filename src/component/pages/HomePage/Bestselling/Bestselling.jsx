@@ -5,6 +5,39 @@ import gsap from "gsap";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 
+const dishes = [
+  {
+    id: 1,
+    name: "chicken fried rice",
+    image: "../Home/BestSelling/dishes1_1.png",
+    price: 100.99,
+  },
+  {
+    id: 2,
+    name: "chinese pasta",
+    image: "../Home/BestSelling/dishes1_2.png",
+    price: 15.99,
+  },
+  {
+    id: 3,
+    name: "chicken pizza",
+    image: "../Home/BestSelling/dishes1_3.png",
+    price: 26.99,
+  },
+  {
+    id: 4,
+    name: "chicken noodles",
+    image: "../Home/BestSelling/dishes1_4.png",
+    price: 39.99,
+  },
+  {
+    id: 5,
+    name: "grilled chicken",
+    image: "../Home/BestSelling/dishes1_5.png",
+    price: 20.99,
+  },
+];
+
 function Bestselling() {
   const floatingImageRef1 = useRef(null);
 
@@ -19,39 +52,6 @@ function Bestselling() {
       });
     }
   }, []);
-
-  const dishes = [
-    {
-      id: 1,
-      name: "chicken fried rice",
-      image: "../Home/BestSelling/dishes1_1.png",
-      price: 100.99,
-    },
-    {
-      id: 2,
-      name: "chinese pasta",
-      image: "../Home/BestSelling/dishes1_2.png",
-      price: 15.99,
-    },
-    {
-      id: 3,
-      name: "chicken pizza",
-      image: "../Home/BestSelling/dishes1_3.png",
-      price: 26.99,
-    },
-    {
-      id: 4,
-      name: "chicken noodles",
-      image: "../Home/BestSelling/dishes1_4.png",
-      price: 39.99,
-    },
-    {
-      id: 5,
-      name: "grilled chicken",
-      image: "../Home/BestSelling/dishes1_5.png",
-      price: 20.99,
-    },
-  ];
 
   return (
     <section className="w-full p-10 relative min-h-[800px]">
@@ -107,7 +107,7 @@ function Bestselling() {
           ))}
         </div>
 
-        <Button text="view all items" />
+        <Button text="view all items" link="/foodMenu" />
       </div>
 
       <img

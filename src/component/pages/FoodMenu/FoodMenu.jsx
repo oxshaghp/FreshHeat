@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Hero from "/src/component/static/Hero";
 import Offer from "./Offer";
 import SpecialFood from "../../static/SpecialFood";
 import Customer from "../About/customer/Customer";
+
 function FoodMenu() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div>
       <Hero title={"Food Menu"} right={"Food Menu "} left={"Home"} />
