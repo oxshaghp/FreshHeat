@@ -70,7 +70,11 @@ function Offer() {
                 {item.subtitle}
               </h5>
             </div>
-            <Button text="Order Now" {...(item.buttonColor || {})} />
+            <Button
+              text="Order Now"
+              link="/shop"
+              {...(item.buttonColor || {})}
+            />
           </div>
           <div className="relative">
             <LazyLoadImage

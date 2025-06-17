@@ -1,12 +1,12 @@
 import React, { useContext, useState, useEffect } from "react";
-import { FaSearch, FaShoppingCart } from "react-icons/fa";
+import { FaSearch, FaShoppingCart, FaLongArrowAltRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { IoMenu } from "react-icons/io5";
 import Button from "./Button";
-import { AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Cart from "./Cart";
 import AppContext from "../context/AppContext";
-import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { FaUserCircle } from "react-icons/fa";
 function Navbar() {
   const [openSearch, setOpenSearch] = useState(false);
@@ -119,29 +119,6 @@ function Navbar() {
                 </li>
               </ul>
             </li>
-            {user ? (
-              <li>
-                <button
-                  onClick={() => {
-                    signOut(auth);
-                    setUser(null);
-                    window.location.href = "/login";
-                  }}
-                  className="hover:text-[var(--red)] font-bold transition-all duration-500"
-                >
-                  Log Out
-                </button>
-              </li>
-            ) : (
-              <li>
-                <Link
-                  className="hover:text-[var(--red)] font-bold transition-all duration-500"
-                  to="/login"
-                >
-                  LogIn
-                </Link>
-              </li>
-            )}
           </ul>
 
           <div className="flex items-center justify-center gap-5">
@@ -174,7 +151,38 @@ function Navbar() {
                 <FaUserCircle size={24} />
               </Link>
             )}
-            <Button text="Order Now" />
+            {user ? (
+              <Button text="Order Now" link="/shop" />
+            ) : (
+              <div className="flex items-center gap-3">
+                <Link to="/login">
+                  <button
+                    className="cursor-pointer relative overflow-hidden group flex items-center justify-center py-2 rounded uppercase font-semibold text-white transition-colors duration-300"
+                    style={{
+                      backgroundColor: "var(--red)",
+                      width: "120px",
+                      height: "48px",
+                    }}
+                  >
+                    {/* Top hover overlay */}
+                    <span
+                      className="absolute left-0 top-0 w-0 h-1/2 z-0 transition-all duration-500 group-hover:w-full"
+                      style={{ backgroundColor: "var(--orange)" }}
+                    />
+                    {/* Bottom hover overlay */}
+                    <span
+                      className="absolute right-0 bottom-0 w-0 h-1/2 z-0 transition-all duration-500 group-hover:w-full"
+                      style={{ backgroundColor: "var(--orange)" }}
+                    />
+                    {/* Button content */}
+                    <span className="relative z-10 flex items-center gap-2 text-base">
+                      Login
+                      <FaLongArrowAltRight />
+                    </span>
+                  </button>
+                </Link>
+              </div>
+            )}
           </div>
 
           <div
@@ -267,26 +275,92 @@ function Navbar() {
             )}
             {user ? (
               <li>
-                <button
-                  onClick={() => {
-                    signOut(auth);
-                    setUser(null);
-                    window.location.href = "/login";
-                  }}
-                  className="hover:text-[var(--red)] font-bold transition-all duration-500"
-                >
-                  Log Out
-                </button>
-              </li>
-            ) : (
-              <li>
-                <Link
-                  className="hover:text-[var(--red)] font-bold transition-all duration-500"
-                  to="/login"
-                >
-                  LogIn
+                <Link to="/order">
+                  <button
+                    className="cursor-pointer relative overflow-hidden group flex items-center justify-center py-2 rounded uppercase font-semibold text-white transition-colors duration-300"
+                    style={{
+                      backgroundColor: "var(--red)",
+                      width: "120px",
+                      height: "48px",
+                    }}
+                  >
+                    {/* Top hover overlay */}
+                    <span
+                      className="absolute left-0 top-0 w-0 h-1/2 z-0 transition-all duration-500 group-hover:w-full"
+                      style={{ backgroundColor: "var(--orange)" }}
+                    />
+                    {/* Bottom hover overlay */}
+                    <span
+                      className="absolute right-0 bottom-0 w-0 h-1/2 z-0 transition-all duration-500 group-hover:w-full"
+                      style={{ backgroundColor: "var(--orange)" }}
+                    />
+                    {/* Button content */}
+                    <span className="relative z-10 flex items-center gap-2 text-base">
+                      Order Now
+                      <FaLongArrowAltRight />
+                    </span>
+                  </button>
                 </Link>
               </li>
+            ) : (
+              <>
+                <li>
+                  <Link to="/login">
+                    <button
+                      className="cursor-pointer relative overflow-hidden group flex items-center justify-center py-2 rounded uppercase font-semibold text-white transition-colors duration-300"
+                      style={{
+                        backgroundColor: "var(--red)",
+                        width: "120px",
+                        height: "48px",
+                      }}
+                    >
+                      {/* Top hover overlay */}
+                      <span
+                        className="absolute left-0 top-0 w-0 h-1/2 z-0 transition-all duration-500 group-hover:w-full"
+                        style={{ backgroundColor: "var(--orange)" }}
+                      />
+                      {/* Bottom hover overlay */}
+                      <span
+                        className="absolute right-0 bottom-0 w-0 h-1/2 z-0 transition-all duration-500 group-hover:w-full"
+                        style={{ backgroundColor: "var(--orange)" }}
+                      />
+                      {/* Button content */}
+                      <span className="relative z-10 flex items-center gap-2 text-base">
+                        Login
+                        <FaLongArrowAltRight />
+                      </span>
+                    </button>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/signup">
+                    <button
+                      className="cursor-pointer relative overflow-hidden group flex items-center justify-center py-2 rounded uppercase font-semibold text-white transition-colors duration-300"
+                      style={{
+                        backgroundColor: "var(--red)",
+                        width: "120px",
+                        height: "48px",
+                      }}
+                    >
+                      {/* Top hover overlay */}
+                      <span
+                        className="absolute left-0 top-0 w-0 h-1/2 z-0 transition-all duration-500 group-hover:w-full"
+                        style={{ backgroundColor: "var(--orange)" }}
+                      />
+                      {/* Bottom hover overlay */}
+                      <span
+                        className="absolute right-0 bottom-0 w-0 h-1/2 z-0 transition-all duration-500 group-hover:w-full"
+                        style={{ backgroundColor: "var(--orange)" }}
+                      />
+                      {/* Button content */}
+                      <span className="relative z-10 flex items-center gap-2 text-base">
+                        Sign Up
+                        <FaLongArrowAltRight />
+                      </span>
+                    </button>
+                  </Link>
+                </li>
+              </>
             )}
             <li className="relative group">
               <Link className="cursor-pointer">Our Story</Link>

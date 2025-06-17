@@ -1,5 +1,6 @@
 import React from "react";
 import { FaLongArrowAltRight } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 function Button({
   text,
@@ -7,6 +8,7 @@ function Button({
   h = "48px",
   bg = "var(--red)",
   hoverBg = "var(--orange)",
+  link = "/",
 }) {
   return (
     <button
@@ -24,10 +26,13 @@ function Button({
         style={{ backgroundColor: hoverBg }}
       />
       {/* Button content */}
-      <span className="relative z-10 flex items-center gap-2 text-base">
+      <Link
+        to={link}
+        className="relative z-10 flex items-center gap-2 text-base"
+      >
         {text}
         <FaLongArrowAltRight />
-      </span>
+      </Link>
     </button>
   );
 }

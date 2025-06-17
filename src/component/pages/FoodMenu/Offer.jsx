@@ -4,73 +4,11 @@ import Button from "/src/component/static/Button";
 import gsap from "gsap";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
-
-const dishes = [
-  {
-    id: 1,
-    name: "chicken fried rice",
-    image: "../Menu/menuThumb1_1.png",
-    price: 100.99,
-  },
-  {
-    id: 2,
-    name: "chinese pasta",
-    image: "../Menu/menuThumb1_2.png",
-    price: 15.99,
-  },
-  {
-    id: 3,
-    name: "chicken pizza",
-    image: "../Menu/menuThumb1_3.png",
-    price: 26.99,
-  },
-  {
-    id: 4,
-    name: "chicken noodles",
-    image: "../Menu/menuThumb1_4.png",
-    price: 39.99,
-  },
-  {
-    id: 5,
-    name: "grilled chicken",
-    image: "../Menu/menuThumb1_5.png",
-    price: 20.99,
-  },
-  {
-    id: 6,
-    name: "Egg and Cucumber",
-    image: "../Menu/menuThumb1_6.png",
-    price: 30.99,
-  },
-  {
-    id: 7,
-    name: "Chicken White Rice",
-    image: "../Menu/menuThumb1_7.png",
-    price: 40.99,
-  },
-  {
-    id: 8,
-    name: "Spatial Barger",
-    image: "../Menu/menuThumb1_8.png",
-    price: 50.99,
-  },
-  {
-    id: 9,
-    name: "Vegetables Burger",
-    image: "../Menu/menuThumb1_9.png",
-    price: 55.99,
-  },
-  {
-    id: 10,
-    name: "Brief Chicken",
-    image: "../Menu/menuThumb1_10.png",
-    price: 80.99,
-  },
-];
+import useAppContext from "../../context/useAppContext";
 
 function Offer() {
   const floatingImageRef1 = useRef(null);
-
+  const { menuItems } = useAppContext();
   useEffect(() => {
     if (floatingImageRef1.current) {
       gsap.to(floatingImageRef1.current, {
@@ -102,7 +40,7 @@ function Offer() {
 
       <div className="flex flex-col items-center justify-center">
         <div className="grid xl:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5 mb-10">
-          {dishes.map((dish) => (
+          {menuItems.map((dish) => (
             <div
               key={dish.id}
               className="w-[280px] h-[350px] group relative bg-white hover:bg-[url(../backGround/dishesThumbBG.png)] bg-cover bg-center bg-no-repeat transition-all duration-560 rounded-2xl flex flex-col justify-center items-center"
@@ -132,7 +70,7 @@ function Offer() {
           ))}
         </div>
 
-        <Button text="view all items" />
+        <Button text="Order Now" link="/shop" />
       </div>
 
       <img

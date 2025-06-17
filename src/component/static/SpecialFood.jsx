@@ -61,7 +61,7 @@ function SpecialFood() {
               limits Time Offer
             </h3>
           </div>
-          <Button text="order now" />
+          <Button text="Order Now" link="/shop" />
         </div>
         <img
           src="../specialFood/ctaThumb1_1.png"
