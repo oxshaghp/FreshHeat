@@ -8,9 +8,9 @@ import {
   signInWithPopup,
   updateProfile,
 } from "firebase/auth";
-import { auth, provider } from "/src/Config/Firebase.js";
+import { auth, provider, db } from "/src/Config/Firebase.js";
 import { Link } from "react-router-dom";
-
+import { doc, setDoc } from "firebase/firestore";
 function SignUp() {
   const [formData, setFormData] = useState({
     name: "",
@@ -30,14 +30,24 @@ function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await createUserWithEmailAndPassword(
+      const userCredential = await createUserWithEmailAndPassword(
         auth,
         formData.email,
         formData.password
       );
 
-      await updateProfile(auth.currentUser, {
+      const user = userCredential.user;
+
+      await updateProfile(user, {
         displayName: formData.name,
+      });
+
+      await setDoc(doc(db, "users", user.uid), {
+        name: formData.name,
+        phone: formData.phone,
+        email: formData.email,
+        uid: user.uid,
+        createdAt: new Date(),
       });
 
       toast.success("Account created successfully!");
@@ -46,19 +56,21 @@ function SignUp() {
       toast.error(error.message || "Sign up failed.");
     }
   };
-
   const handleGoogleSignUp = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
 
-      const name = user.displayName;
-      const email = user.email;
-      const phone = user.phoneNumber;
+      await setDoc(doc(db, "users", user.uid), {
+        name: user.displayName,
+        email: user.email,
+        phone: user.phoneNumber || "",
+        uid: user.uid,
+        createdAt: new Date(),
+        provider: "google",
+      });
 
-      console.log("Google User:", { name, email, phone });
-
-      toast.success(`Welcome ${name}!`);
+      toast.success(`Welcome ${user.displayName}!`);
       window.location.href = "/";
     } catch (error) {
       toast.error("Google sign-up failed.");

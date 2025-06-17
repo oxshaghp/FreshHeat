@@ -13,42 +13,61 @@ import { onAuthStateChanged } from "firebase/auth";
 function Profile() {
   const [userData, setUserData] = useState(null);
   const [activeSection, setActiveSection] = useState("info");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const loadUser = async (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        let additionalData = {};
         try {
           const userDocRef = doc(db, "users", user.uid);
           const userDocSnap = await getDoc(userDocRef);
-          if (userDocSnap.exists()) {
-            additionalData = userDocSnap.data();
-          }
+          const additionalData = userDocSnap.exists() ? userDocSnap.data() : {};
+
+          setUserData({
+            name: additionalData.name || user.displayName || "No Name",
+            email: user.email,
+            phone: additionalData.phone || "No phone number",
+          });
         } catch (error) {
           console.error("Error fetching Firestore data:", error.message);
+        } finally {
+          setLoading(false);
         }
-
-        setUserData({
-          name: additionalData.name || user.displayName || "No Name",
-          email: user.email,
-          phone: additionalData.phone || "No phone number",
-        });
+      } else {
+        // المستخدم مش مسجل دخول
+        setLoading(false);
+        setUserData(null);
+        window.location.href = "/login"; // redirect على صفحة تسجيل الدخول
       }
-    };
+    });
 
-    const user = auth.currentUser;
-    if (user) {
-      loadUser(user);
-    } else {
-      const unsubscribe = onAuthStateChanged(auth, loadUser);
-      return () => unsubscribe();
-    }
+    return () => unsubscribe();
   }, []);
 
-  if (!userData) {
+  const handleLogout = () => {
+    auth
+      .signOut()
+      .then(() => {
+        setUserData(null);
+        window.location.href = "/login";
+      })
+      .catch((error) => {
+        console.error("Logout error:", error);
+      });
+  };
+
+  if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center text-xl text-gray-700">
         Loading profile...
+      </div>
+    );
+  }
+
+  if (!userData) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-xl text-red-600">
+        حدث خطأ: لم يتم العثور على بيانات المستخدم.
       </div>
     );
   }
@@ -91,6 +110,13 @@ function Profile() {
           }`}
         >
           <FaShoppingCart /> Cart
+        </button>
+
+        <button
+          onClick={handleLogout}
+          className="w-full py-2 rounded-md font-semibold flex items-center justify-center gap-2 transition bg-red-500 text-white hover:bg-black"
+        >
+          Logout
         </button>
       </div>
 
