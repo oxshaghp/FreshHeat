@@ -101,16 +101,6 @@ function Profile() {
         >
           <FaHeart /> Favorites
         </button>
-        <button
-          onClick={() => setActiveSection("cart")}
-          className={`w-full py-2 rounded-md font-semibold flex items-center justify-center gap-2 transition ${
-            activeSection === "cart"
-              ? "bg-black text-white"
-              : "bg-red-500 text-white hover:bg-black"
-          }`}
-        >
-          <FaShoppingCart /> Cart
-        </button>
 
         <button
           onClick={handleLogout}
@@ -145,12 +135,6 @@ function Profile() {
         {activeSection === "favorites" && (
           <div className="text-center text-gray-600 text-lg">
             <p>No favorite items yet.</p>
-          </div>
-        )}
-
-        {activeSection === "cart" && (
-          <div className="text-center text-gray-600 text-lg">
-            <p>Your shopping cart is empty.</p>
           </div>
         )}
       </div>

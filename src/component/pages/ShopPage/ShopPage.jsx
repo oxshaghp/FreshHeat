@@ -8,6 +8,7 @@ import { Link, Navigate } from "react-router-dom";
 import { getAuth } from "firebase/auth";
 import useCartContext from "../../context/CartContext/UseCartContext";
 import useAppContext from "../../context/AppContext/useAppContext";
+import { ToastContainer } from "react-toastify";
 function ShopPage() {
   const borderRefs = useRef([]);
   const { menuItems } = useAppContext();
@@ -52,6 +53,7 @@ function ShopPage() {
   }
   return (
     <section>
+      <ToastContainer position="top-center" />
       <Hero title={"Shop"} left={"Home"} right={"Shop"} />
 
       <div className="flex lg:flex-row flex-col flex-wrap justify-center lg:w-[80%] w-full mx-auto mt-30 ">
