@@ -6,14 +6,14 @@ import Button from "./Button";
 import { motion, AnimatePresence } from "framer-motion";
 import Cart from "./Cart";
 import AppContext from "../context/AppContext/AppContext";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "/src/Config/Firebase";
 import { FaUserCircle } from "react-icons/fa";
 function Navbar() {
   const [openSearch, setOpenSearch] = useState(false);
   const [openSubMenu, setOpenSubMenu] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const { cartOpen, setCartOpen } = useContext(AppContext);
-  const auth = getAuth();
   const [user, setUser] = useState(null);
   const location = useLocation();
 
@@ -31,16 +31,6 @@ function Navbar() {
   };
   const handleCloseSearch = () => {
     setOpenSearch(false);
-  };
-  const handleLogout = () => {
-    auth
-      .signOut()
-      .then(() => {
-        setUser(null);
-      })
-      .catch((error) => {
-        console.error("Logout error:", error);
-      });
   };
   return (
     <>
@@ -411,16 +401,6 @@ function Navbar() {
                     Gallery
                   </Link>
                 </li>
-                {user && (
-                  <li>
-                    <button
-                      onClick={handleLogout}
-                      className="hover:text-[var(--red)] font-bold transition-all duration-500"
-                    >
-                      Logout
-                    </button>
-                  </li>
-                )}
               </ul>
             </li>
           </ul>
