@@ -4,7 +4,7 @@ import Button from "../../../static/Button";
 import gsap from "gsap";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
-
+import useCartContext from "../../../context/CartContext/UseCartContext";
 const dishes = [
   {
     id: 1,
@@ -40,6 +40,7 @@ const dishes = [
 
 function Bestselling() {
   const floatingImageRef1 = useRef(null);
+  const { AddToCart } = useCartContext();
 
   useEffect(() => {
     if (floatingImageRef1.current) {
@@ -84,7 +85,12 @@ function Bestselling() {
               <button className="cursor-pointer absolute text-white bg-[var(--red)] top-3 right-3 p-2 rounded-full">
                 <FaHeart />
               </button>
-              <button className="cursor-pointer absolute text-black bg-[var(--white)] top-[120px] opacity-0 right-3 group-hover:opacity-100 group-hover:top-12 transform transition-all duration-700 p-2 rounded-full">
+              <button
+                onClick={() => {
+                  AddToCart(dish);
+                }}
+                className="cursor-pointer absolute text-black bg-[var(--white)] top-[120px] opacity-0 right-3 group-hover:opacity-100 group-hover:top-12 transform transition-all duration-700 p-2 rounded-full"
+              >
                 <FaShoppingCart />
               </button>
 

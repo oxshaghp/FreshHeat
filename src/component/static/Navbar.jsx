@@ -1,11 +1,11 @@
 import React, { useContext, useState, useEffect } from "react";
 import { FaSearch, FaShoppingCart, FaLongArrowAltRight } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { IoMenu } from "react-icons/io5";
 import Button from "./Button";
 import { motion, AnimatePresence } from "framer-motion";
 import Cart from "./Cart";
-import AppContext from "../context/AppContext";
+import AppContext from "../context/AppContext/AppContext";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { FaUserCircle } from "react-icons/fa";
 function Navbar() {
@@ -15,6 +15,10 @@ function Navbar() {
   const { cartOpen, setCartOpen } = useContext(AppContext);
   const auth = getAuth();
   const [user, setUser] = useState(null);
+  const location = useLocation();
+
+  const isCartOrCheckoutPage =
+    location.pathname === "/cart" || location.pathname === "/checkout";
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -129,43 +133,35 @@ function Navbar() {
                 </li>
               </ul>
             </li>
-            {user && (
-              <li>
-                <button
-                  onClick={handleLogout}
-                  className="hover:text-[var(--red)] font-bold transition-all duration-500"
-                >
-                  Logout
-                </button>
-              </li>
-            )}
           </ul>
 
           <div className="flex items-center justify-center gap-5">
             <button onClick={handleOpenSearch} className="cursor-pointer">
               <FaSearch />
             </button>
-            <div>
-              <button
-                onClick={() => setCartOpen((prev) => !prev)}
-                className="cursor-pointer relative"
-              >
-                <FaShoppingCart size={22} />
-              </button>
-              <AnimatePresence>
-                {cartOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -30 }}
-                    transition={{ duration: 0.3 }}
-                    className="absolute right-0 mt-10 z-50"
-                  >
-                    <Cart />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
+            {!isCartOrCheckoutPage && (
+              <div>
+                <button
+                  onClick={() => setCartOpen((prev) => !prev)}
+                  className="cursor-pointer relative"
+                >
+                  <FaShoppingCart size={22} />
+                </button>
+                <AnimatePresence>
+                  {cartOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -30 }}
+                      transition={{ duration: 0.3 }}
+                      className="absolute right-0 mt-10 z-50"
+                    >
+                      <Cart />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            )}
             {user && (
               <Link to="/profile" className="cursor-pointer">
                 <FaUserCircle size={24} />

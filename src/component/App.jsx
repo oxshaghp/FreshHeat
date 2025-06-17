@@ -14,13 +14,13 @@ import ContactPage from "./pages/ContactPage/ContactPage";
 import Footer from "./static/Footer";
 import Blog from "./pages/BlogPage/Blog";
 import ChefDeteils from "./pages/ChefsPage/Chefs/ChefDeteils";
-import LogIn from "./pages/LogIn/LogIn";
+import LogIn from "./pages/RegesterPage/LogIn/LogIn";
 import Profile from "./pages/Peofile/Profile";
-import SignUp from "./pages/SignUp/SignUp";
+import SignUp from "./pages/RegesterPage/SignUp/SignUp";
 import CartPage from "./pages/CartPage/CartPage";
-import CheckoutPage from "./pages/CheckoutPage/CheckoutPage";
-import PaymentMethodPage from "./pages/PaymentMethodPage";
-import { AppProvider } from "./context/AppContext";
+import CheckoutPage from "./pages/CheckOut/CheckoutPage/CheckoutPage";
+import PaymentMethodPage from "./pages/CheckOut/PaymentMethodPage";
+import { AppProvider } from "./context/AppContext/AppContext";
 
 function App() {
   return (

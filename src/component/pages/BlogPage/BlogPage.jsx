@@ -1,9 +1,9 @@
 import React from "react";
 import Hero from "../../static/Hero";
 import BlogCard from "./BlogCard";
-import useAppContext from "../../context/useAppContext";
+import useBlogContext from "../../context/BlogContext/useBlogContext";
 function BlogPage() {
-  const { blogs } = useAppContext();
+  const { blogs } = useBlogContext();
 
   return (
     <div>

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Button from "../../static/Button";
-import useAppContext from "../../context/useAppContext";
+import Button from "../../../static/Button";
+import useCheckOutContext from "../../../context/CheckOutContext/useCheckOutContext";
+import useCartContext from "../../../context/CartContext/UseCartContext";
 
 const initialForm = {
   firstName: "",
@@ -20,7 +21,8 @@ const CheckoutPage = () => {
   const [form, setForm] = useState(initialForm);
   const [errors, setErrors] = useState({});
 
-  const { cartItems, total, discount, finalTotal } = useAppContext();
+  const { total, discount, finalTotal } = useCheckOutContext();
+  const { cartItems } = useCartContext();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
