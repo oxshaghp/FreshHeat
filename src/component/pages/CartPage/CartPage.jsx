@@ -2,11 +2,18 @@ import React from "react";
 import Button from "../../static/Button";
 import { TiDelete } from "react-icons/ti";
 import { Link } from "react-router-dom";
-import useAppContext from "../../context/useAppContext";
+import useCartContext from "../../context/CartContext/UseCartContext";
+import useCheckOutContext from "../../context/CheckOutContext/useCheckOutContext";
 
 const CartPage = () => {
   const {
     cartItems,
+    DecreaseQuantity,
+    IncreaseQuantity,
+    ClearCart,
+    RemoveFromCart,
+  } = useCartContext();
+  const {
     total,
     discount,
     finalTotal,
@@ -14,7 +21,7 @@ const CartPage = () => {
     setPromoCode,
     promoMessage,
     handlePromoCode,
-  } = useAppContext();
+  } = useCheckOutContext();
 
   return (
     <section className="min-h-screen bg-[#f8f9fa] flex flex-col items-center py-10 px-4">
@@ -35,7 +42,12 @@ const CartPage = () => {
                   ({cartItems.length} products)
                 </span>
               </h1>
-              <button className="cursor-pointer text-[var(--red)] font-bold">
+              <button
+                onClick={() => {
+                  ClearCart();
+                }}
+                className="cursor-pointer text-[var(--red)] font-bold"
+              >
                 Clear Cart
               </button>
             </div>
@@ -57,11 +69,21 @@ const CartPage = () => {
                   </div>
 
                   <div className="flex items-center gap-2 w-[125px]">
-                    <button className="px-2 cursor-pointer py-1 bg-gray-200 w-[25px] h-[25px] flex items-center justify-center rounded-full">
+                    <button
+                      onClick={() => {
+                        DecreaseQuantity(item.id);
+                      }}
+                      className="px-2 cursor-pointer py-1 bg-gray-200 w-[25px] h-[25px] flex items-center justify-center rounded-full"
+                    >
                       -
                     </button>
                     <span>{item.quantity}</span>
-                    <button className="px-2 cursor-pointer py-1 bg-gray-200 w-[25px] h-[25px] flex items-center justify-center rounded-full">
+                    <button
+                      onClick={() => {
+                        IncreaseQuantity(item.id);
+                      }}
+                      className="px-2 cursor-pointer py-1 bg-gray-200 w-[25px] h-[25px] flex items-center justify-center rounded-full"
+                    >
                       +
                     </button>
                   </div>
@@ -70,7 +92,10 @@ const CartPage = () => {
                     <p className="text-gray-500">${item.price.toFixed(2)}</p>
                   </div>
 
-                  <button className="cursor-pointer text-2xl">
+                  <button
+                    onClick={() => RemoveFromCart(item.id)}
+                    className="cursor-pointer text-2xl"
+                  >
                     <TiDelete />
                   </button>
                 </li>

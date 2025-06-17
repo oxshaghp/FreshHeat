@@ -2,12 +2,11 @@ import React from "react";
 import { FaUser } from "react-icons/fa";
 import { GoArrowUpRight } from "react-icons/go";
 import { Link } from "react-router-dom";
-import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
-import useAppContext from "../../../context/useAppContext";
+import useBlogContext from "../../../context/BlogContext/useBlogContext";
 
 function Latest() {
-  const { featuredBlogs } = useAppContext();
+  const { featuredBlogs } = useBlogContext();
   return (
     <section className="relative mt-10 mb-20 w-full min-h-[500px]">
       <img

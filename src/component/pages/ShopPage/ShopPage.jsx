@@ -2,15 +2,16 @@ import React, { useEffect, useRef, useState } from "react";
 import Hero from "../../static/Hero";
 import { FaSearch } from "react-icons/fa";
 import gsap from "gsap";
-import useAppContext from "../../context/useAppContext";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { FaStar } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { getAuth } from "firebase/auth";
+import useCartContext from "../../context/CartContext/UseCartContext";
+import useAppContext from "../../context/AppContext/useAppContext";
 function ShopPage() {
   const borderRefs = useRef([]);
-  const { menuItems, setCartItems, cartItems } = useAppContext();
-
+  const { menuItems } = useAppContext();
+  const { AddToCart } = useCartContext();
   const [filteredItems, setFilteredItems] = useState(menuItems);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
@@ -22,6 +23,7 @@ function ShopPage() {
   const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
   const auth = getAuth();
   const { currentUser } = useAppContext();
+
   useEffect(() => {
     borderRefs.current.forEach((el) => {
       if (el) {
@@ -45,37 +47,16 @@ function ShopPage() {
     max: 1000,
   });
 
-  const handleAddToCart = (item) => {
-    const existingItem = cartItems.find((cartItem) => cartItem.id === item.id);
-
-    if (existingItem) {
-      setCartItems((prev) =>
-        prev.map((cartItem) =>
-          cartItem.id === item.id
-            ? { ...cartItem, quantity: cartItem.quantity + 1 }
-            : cartItem
-        )
-      );
-    } else {
-      setCartItems((prev) => [...prev, { ...item, quantity: 1 }]);
-    }
-
-    alert(`${item.name} added to cart!`);
-  };
   if (!currentUser) {
-    return (
-      <div className="min-h-screen flex justify-center items-center text-xl text-[var(--red)] font-bold text-center px-4">
-        Please Log In and Come Back !
-      </div>
-    );
+    return <Navigate to="/login" />;
   }
   return (
     <section>
       <Hero title={"Shop"} left={"Home"} right={"Shop"} />
 
-      <div className="flex lg:flex-row flex-col justify-center lg:w-[70%] w-full mx-auto mt-30">
+      <div className="flex lg:flex-row flex-col flex-wrap justify-center lg:w-[80%] w-full mx-auto mt-30 ">
         {/* Sidebar */}
-        <div className="lg:w-[500px] w-full mx-auto">
+        <div className="lg:w-[500px]  w-full mx-auto mb-20">
           {/* Search */}
           <div className="bg-white lg:w-[400px] w-[95%] mx-auto min-h-[200px] p-7 rounded-2xl mb-10">
             <h1 className="relative text-2xl after:content-[''] after:absolute after:w-[20%] after:h-[2px] after:bg-[var(--red)] after:left-0 after:-bottom-1 font-bold mb-5">
@@ -178,7 +159,7 @@ function ShopPage() {
                       </p>
                       <button
                         className="bg-[#FDE5E9] hover:bg-[var(--red)] text-[var(--red)] hover:text-white px-10 py-2 rounded-full transition-all duration-500 cursor-pointer"
-                        onClick={() => handleAddToCart(item)}
+                        onClick={() => AddToCart(item)}
                       >
                         Add To Cart
                       </button>

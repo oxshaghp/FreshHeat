@@ -4,7 +4,7 @@ import Button from "/src/component/static/Button";
 import gsap from "gsap";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
-import useAppContext from "../../context/useAppContext";
+import useAppContext from "../../context/AppContext/useAppContext";
 
 function Offer() {
   const floatingImageRef1 = useRef(null);

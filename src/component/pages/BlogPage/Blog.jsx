@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import useAppContext from "../../context/useAppContext";
+import useBlogContext from "../../context/BlogContext/useBlogContext";
 import { FaFacebook, FaLinkedin, FaXTwitter, FaYoutube } from "react-icons/fa6";
 import { FaSearch } from "react-icons/fa";
 import { SlCalender } from "react-icons/sl";
@@ -7,7 +7,7 @@ import Hero from "../../static/Hero";
 
 function Blog() {
   const { id } = useParams();
-  const { blogs } = useAppContext();
+  const { blogs } = useBlogContext();
 
   const blog = blogs.find((b) => b.id === parseInt(id));
 
