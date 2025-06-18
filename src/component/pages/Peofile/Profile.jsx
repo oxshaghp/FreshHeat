@@ -9,6 +9,8 @@ import {
 import { auth, db } from "/src/Config/Firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
+import { MdPayments } from "react-icons/md";
+import PaymentPage from "./PaymentPage";
 
 function Profile() {
   const [userData, setUserData] = useState(null);
@@ -101,12 +103,15 @@ function Profile() {
         >
           <FaHeart /> Favorites
         </button>
-
         <button
-          onClick={handleLogout}
-          className="w-full py-2 rounded-md font-semibold flex items-center justify-center gap-2 transition bg-red-500 text-white hover:bg-black"
+          onClick={() => setActiveSection("payment")}
+          className={`w-full py-2 rounded-md font-semibold flex items-center justify-center gap-2 transition ${
+            activeSection === "favorites"
+              ? "bg-black text-white"
+              : "bg-red-500 text-white hover:bg-black"
+          }`}
         >
-          Logout
+          <MdPayments /> Payment
         </button>
       </div>
 
@@ -129,6 +134,12 @@ function Profile() {
               <FaEnvelope className="text-[var(--main)]" />
               <span className="text-lg">{userData.email}</span>
             </div>
+            <button
+              onClick={handleLogout}
+              className="w-[150px] mt-5 py-2 cursor-pointer rounded-md font-semibold flex items-center justify-center gap-2 transition bg-red-500 text-white hover:bg-black"
+            >
+              Logout
+            </button>
           </>
         )}
 
@@ -137,9 +148,16 @@ function Profile() {
             <p>No favorite items yet.</p>
           </div>
         )}
+
+        {activeSection === "payment" && <PaymentPage />}
       </div>
     </div>
   );
 }
 
 export default Profile;
+{
+  /* <div className="text-center text-gray-600 text-lg">
+  <p>No favorite items yet.</p>
+</div> */
+}

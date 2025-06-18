@@ -19,8 +19,8 @@ import Profile from "./pages/Peofile/Profile";
 import SignUp from "./pages/RegesterPage/SignUp/SignUp";
 import CartPage from "./pages/CartPage/CartPage";
 import CheckoutPage from "./pages/CheckOut/CheckoutPage/CheckoutPage";
-import PaymentMethodPage from "./pages/CheckOut/PaymentMethodPage";
 import { AppProvider } from "./context/AppContext/AppContext";
+import PaymentMethodPage from "./pages/CheckOut/PaymentMethodPage/PaymentMethodPage";
 
 function App() {
   return (
