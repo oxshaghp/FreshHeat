@@ -94,16 +94,6 @@ function Profile() {
           Profile Info
         </button>
         <button
-          onClick={() => setActiveSection("favorites")}
-          className={`w-full py-2 rounded-md font-semibold flex items-center justify-center gap-2 transition ${
-            activeSection === "favorites"
-              ? "bg-black text-white"
-              : "bg-red-500 text-white hover:bg-black"
-          }`}
-        >
-          <FaHeart /> Favorites
-        </button>
-        <button
           onClick={() => setActiveSection("payment")}
           className={`w-full py-2 rounded-md font-semibold flex items-center justify-center gap-2 transition ${
             activeSection === "favorites"
