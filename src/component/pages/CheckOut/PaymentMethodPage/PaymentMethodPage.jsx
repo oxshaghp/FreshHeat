@@ -4,10 +4,18 @@ import "react-toastify/dist/ReactToastify.css";
 import { Link, useNavigate } from "react-router-dom";
 import usePaymentContext from "../../../context/PaymentContext/UsePaymentContext";
 import Button from "../../../static/Button";
+import { sendReceipt } from "../../../email";
+import useCartContext from "../../../context/CartContext/UseCartContext";
 
 const PaymentMethodPage = () => {
   const { paymentItems } = usePaymentContext();
   const [selectedCardId, setSelectedCardId] = useState(null);
+  const { cartItems } = useCartContext();
+
+  const handleSubmit = () => {
+    sendReceipt(cartItems);
+    alert("Order placed! Check your email for a receipt.");
+  };
   const navigate = useNavigate();
 
   const handleSubmitOrder = () => {
@@ -121,8 +129,12 @@ const PaymentMethodPage = () => {
               <Link to="/checkout">Back To Checkout</Link>
             </button>
             <button
+
+              onClick={handleSubmit}
+              className="flex-1 py-2 rounded bg-[var(--red)] text-white cursor-pointer"
               className="flex-1 py-2 rounded bg-[var(--red)] text-white cursor-pointer"
               onClick={handleSubmitOrder}
+
             >
               Submit
             </button>
