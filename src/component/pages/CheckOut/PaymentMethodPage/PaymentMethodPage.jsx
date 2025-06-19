@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-
-import { Link } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Link, useNavigate } from "react-router-dom";
 import usePaymentContext from "../../../context/PaymentContext/UsePaymentContext";
 import Button from "../../../static/Button";
 import { sendReceipt } from "../../../email";
@@ -15,9 +16,31 @@ const PaymentMethodPage = () => {
     sendReceipt(cartItems);
     alert("Order placed! Check your email for a receipt.");
   };
+  const navigate = useNavigate();
 
+  const handleSubmitOrder = () => {
+    if (!selectedCardId) {
+      toast.error("Please select a payment method");
+      return;
+    }
+
+    const selectedCard = paymentItems.find(
+      (card) => card.id === selectedCardId
+    );
+
+    toast.success(
+      `Order placed successfully. Paid with **** ${selectedCard.number.slice(
+        -4
+      )}`
+    );
+
+    setTimeout(() => {
+      navigate("/");
+    }, 3000);
+  };
   return (
     <div className="max-w-[60%] mx-auto bg-white rounded-lg shadow-lg p-8 my-10">
+      <ToastContainer position="top-center" />
       <nav className="text-[var(--text)] text-lg mb-4 flex items-center gap-2 justify-center">
         <Link
           className="font-bold text-black hover:text-[var(--red)] transition duration-500"
@@ -106,8 +129,12 @@ const PaymentMethodPage = () => {
               <Link to="/checkout">Back To Checkout</Link>
             </button>
             <button
+
               onClick={handleSubmit}
               className="flex-1 py-2 rounded bg-[var(--red)] text-white cursor-pointer"
+              className="flex-1 py-2 rounded bg-[var(--red)] text-white cursor-pointer"
+              onClick={handleSubmitOrder}
+
             >
               Submit
             </button>
