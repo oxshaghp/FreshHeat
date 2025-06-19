@@ -82,9 +82,6 @@ function Bestselling() {
               key={dish.id}
               className="w-[280px] h-[350px] group relative bg-white hover:bg-[url(../backGround/dishesThumbBG.png)] bg-cover bg-center bg-no-repeat transition-all duration-560 rounded-2xl flex flex-col justify-center items-center"
             >
-              <button className="cursor-pointer absolute text-white bg-[var(--red)] top-3 right-3 p-2 rounded-full">
-                <FaHeart />
-              </button>
               <button
                 onClick={() => {
                   AddToCart(dish);

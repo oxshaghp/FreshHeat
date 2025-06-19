@@ -45,10 +45,6 @@ function Offer() {
               key={dish.id}
               className="w-[280px] h-[350px] group relative bg-white hover:bg-[url(../backGround/dishesThumbBG.png)] bg-cover bg-center bg-no-repeat transition-all duration-560 rounded-2xl flex flex-col justify-center items-center"
             >
-              <button className="absolute top-3 right-3 p-2 rounded-full bg-[var(--red)] text-white">
-                <FaHeart />
-              </button>
-
               <button className="absolute opacity-0 top-[120px] right-3 p-2 rounded-full bg-white text-black transition-all duration-700 group-hover:opacity-100 group-hover:top-12">
                 <FaShoppingCart />
               </button>
