@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import Hero from "../../static/Hero";
+import Hero from "/src/component/static/Hero";
 import BlogCard from "./BlogCard";
-import useBlogContext from "../../context/BlogContext/useBlogContext";
+import useBlogContext from "/src/component/context/BlogContext/useBlogContext";
 function BlogPage() {
   const { blogs } = useBlogContext();
   useEffect(() => {
