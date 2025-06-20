@@ -16,6 +16,7 @@ function ShopPage() {
   const [filteredItems, setFilteredItems] = useState(menuItems);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
+  const [search, setSearch] = useState("");
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
@@ -24,6 +25,9 @@ function ShopPage() {
   const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
   const auth = getAuth();
   const { currentUser } = useAppContext();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   useEffect(() => {
     borderRefs.current.forEach((el) => {
@@ -41,6 +45,7 @@ function ShopPage() {
 
   useEffect(() => {
     setFilteredItems(menuItems);
+    setSearch("");
   }, [menuItems]);
 
   const [priceRange, setPriceRange] = useState({
@@ -66,20 +71,38 @@ function ShopPage() {
             </h1>
             <form
               className="flex flex-col items-start gap-3"
-              onSubmit={(e) => e.preventDefault()}
+              onSubmit={(e) => {
+                e.preventDefault();
+                const filtered = menuItems.filter((item) =>
+                  item.name.toLowerCase().includes(search.toLowerCase())
+                );
+                setFilteredItems(filtered);
+                setCurrentPage(1);
+              }}
             >
               <div className="flex w-full">
                 <input
-                  type="email"
-                  placeholder="Your email address"
+                  type="text"
+                  placeholder="Search for Item"
                   className="w-full p-5 rounded-l-lg bg-[#F4F1EA] text-[var(--text)] placeholder:text-[var(--text)] focus:outline-none"
-                  required
-                  aria-label="Email Address"
+                  value={search}
+                  onChange={(e) => {
+                    setSearch(e.target.value);
+                    // Optionally, live filter as user types:
+                    const filtered = menuItems.filter((item) =>
+                      item.name
+                        .toLowerCase()
+                        .includes(e.target.value.toLowerCase())
+                    );
+                    setFilteredItems(filtered);
+                    setCurrentPage(1);
+                  }}
+                  aria-label="Search for Item"
                 />
                 <button
                   type="submit"
                   className="p-3 rounded-r-lg bg-[var(--red)] cursor-pointer focus:outline-none text-white"
-                  aria-label="Subscribe"
+                  aria-label="Search"
                 >
                   <FaSearch />
                 </button>

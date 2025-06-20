@@ -1,4 +1,4 @@
-import { createContext, useState, useMemo, useEffect } from "react";
+import { createContext, useState, useEffect } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 const AppContext = createContext();
 
@@ -77,7 +77,6 @@ export const AppProvider = ({ children }) => {
   ];
 
   const [cartOpen, setCartOpen] = useState(false);
-
   const [currentUser, setCurrentUser] = useState(null);
   useEffect(() => {
     const auth = getAuth();

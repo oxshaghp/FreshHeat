@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Hero from "../../static/Hero";
 import CurdsFood from "./Curds Food/CurdsFood";
 import AboutSection from "../../static/AboutSection";
@@ -8,12 +8,17 @@ import Customer from "./customer/Customer";
 import Gallery from "../../static/Gallery";
 import TextSlider from "../../static/TextSlider";
 function AboutPage() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div>
       <Hero title={"about us"} left={"Home"} right={"About Us"} />
       <CurdsFood />
       <AboutSection />
-      <TextSlider words={["GRILLED CHICKEN", "CHICKEN BURGER", "PIZZA", "FRESH PASTA"]} />
+      <TextSlider
+        words={["GRILLED CHICKEN", "CHICKEN BURGER", "PIZZA", "FRESH PASTA"]}
+      />
       <SpecialFood />
       <Chefs />
       <Customer />

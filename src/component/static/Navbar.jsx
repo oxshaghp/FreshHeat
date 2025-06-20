@@ -1,37 +1,24 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { FaSearch, FaShoppingCart, FaLongArrowAltRight } from "react-icons/fa";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IoMenu } from "react-icons/io5";
 import Button from "./Button";
-import { motion, AnimatePresence } from "framer-motion";
-import Cart from "./Cart";
-import AppContext from "../context/AppContext/AppContext";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "/src/Config/Firebase";
 import { FaUserCircle } from "react-icons/fa";
+import useCartContext from "../context/CartContext/UseCartContext";
 function Navbar() {
-  const [openSearch, setOpenSearch] = useState(false);
   const [openSubMenu, setOpenSubMenu] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const { cartOpen, setCartOpen } = useContext(AppContext);
+  const { cartItems } = useCartContext();
   const [user, setUser] = useState(null);
-  const location = useLocation();
-
-  const isCartOrCheckoutPage =
-    location.pathname === "/cart" || location.pathname === "/checkout";
-
+  const navigate = useNavigate();
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
     });
     return () => unsubscribe();
   }, []);
-  const handleOpenSearch = () => {
-    setOpenSearch(true);
-  };
-  const handleCloseSearch = () => {
-    setOpenSearch(false);
-  };
   return (
     <>
       <div className="hidden lg:block bg-[var(--black)] text-white">
@@ -126,32 +113,17 @@ function Navbar() {
           </ul>
 
           <div className="flex items-center justify-center gap-5">
-            <button onClick={handleOpenSearch} className="cursor-pointer">
-              <FaSearch />
-            </button>
-            {!isCartOrCheckoutPage && (
-              <div>
-                <button
-                  onClick={() => setCartOpen((prev) => !prev)}
-                  className="cursor-pointer relative"
-                >
-                  <FaShoppingCart size={22} />
-                </button>
-                <AnimatePresence>
-                  {cartOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -30 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -30 }}
-                      transition={{ duration: 0.3 }}
-                      className="absolute right-0 mt-10 z-50"
-                    >
-                      <Cart />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            )}
+            <div className="relative ">
+              <span className="absolute -top-4 -right-3 bg-[var(--red)] text-white w-[17px] h-[17px] flex items-center justify-center rounded-full text-xs">
+                {cartItems.length}
+              </span>
+              <button
+                onClick={() => navigate("/cart")}
+                className="cursor-pointer relative"
+              >
+                <FaShoppingCart size={22} />
+              </button>
+            </div>
             {user && (
               <Link to="/profile" className="cursor-pointer">
                 <FaUserCircle size={24} />
@@ -192,37 +164,9 @@ function Navbar() {
               </div>
             )}
           </div>
-
-          <div
-            className={`${
-              openSearch
-                ? "absolute left-0 top-0 w-full h-full bg-white opacity-75 z-20"
-                : "hidden"
-            }`}
-          >
-            <form
-              action=""
-              className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] w-[700px]"
-            >
-              <input
-                type="text"
-                name=""
-                id=""
-                placeholder="Search"
-                className="text-[var(--red)] w-full h-full outline-none border-b-2 border-solid border-[var(--red)] text-center font-bold"
-              />
-            </form>
-
-            <button
-              onClick={handleCloseSearch}
-              className="font-bold text-[2rem] cursor-pointer text-[var(--red)] absolute top-10 right-10"
-            >
-              X
-            </button>
-          </div>
         </div>
       </div>
-      <div className="block lg:hidden bg-[var(--black)] text-white relative z-10">
+      <div className="block lg:hidden bg-[var(--black)] text-white relative z-30">
         <div className="flex items-center justify-between px-5 gap-10 h-[100px]">
           <Link
             className="hover:text-[var(--red)] font-bold transition-all duration-500"
@@ -266,6 +210,17 @@ function Navbar() {
                 </button>
               </Link>
             )}
+            <div className="relative ">
+              <span className="absolute -top-4 -right-3 bg-[var(--red)] text-white w-[17px] h-[17px] flex items-center justify-center rounded-full text-xs">
+                {cartItems.length}
+              </span>
+              <button
+                onClick={() => navigate("/cart")}
+                className="cursor-pointer relative"
+              >
+                <FaShoppingCart size={22} />
+              </button>
+            </div>
             <button
               className="font-bold text-[2rem] cursor-pointer"
               onClick={() => setIsOpen(!isOpen)}
@@ -319,41 +274,6 @@ function Navbar() {
                 Contact Us
               </Link>
             </li>
-            {user && (
-              <Link to="/profile" className="cursor-pointer">
-                <FaUserCircle size={24} />
-              </Link>
-            )}
-            {user && (
-              <li>
-                <Link to="/order">
-                  <button
-                    className="cursor-pointer relative overflow-hidden group flex items-center justify-center py-2 rounded uppercase font-semibold text-white transition-colors duration-300"
-                    style={{
-                      backgroundColor: "var(--red)",
-                      width: "120px",
-                      height: "48px",
-                    }}
-                  >
-                    {/* Top hover overlay */}
-                    <span
-                      className="absolute left-0 top-0 w-0 h-1/2 z-0 transition-all duration-500 group-hover:w-full"
-                      style={{ backgroundColor: "var(--orange)" }}
-                    />
-                    {/* Bottom hover overlay */}
-                    <span
-                      className="absolute right-0 bottom-0 w-0 h-1/2 z-0 transition-all duration-500 group-hover:w-full"
-                      style={{ backgroundColor: "var(--orange)" }}
-                    />
-                    {/* Button content */}
-                    <span className="relative z-10 flex items-center gap-2 text-base">
-                      Order Now
-                      <FaLongArrowAltRight />
-                    </span>
-                  </button>
-                </Link>
-              </li>
-            )}
             <li className="relative group">
               <Link className="cursor-pointer">Our Story</Link>
               <button
@@ -364,6 +284,7 @@ function Navbar() {
               >
                 {openSubMenu ? "-" : "+"}
               </button>
+
               <ul
                 className={`${
                   openSubMenu ? "group-hover:max-h-[300px] " : "max-h-0"

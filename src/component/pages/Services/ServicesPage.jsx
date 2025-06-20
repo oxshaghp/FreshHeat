@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Hero from "../../static/Hero";
 import ServiceCard from "./ServiceCard";
 import MobileSection from "../../static/MobileSection";
 import Gallery from "../../static/Gallery";
 
 function ServicesPage() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const services = [
     {
       id: 1,

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "../../static/Button";
 import { TiDelete } from "react-icons/ti";
 import { Link } from "react-router-dom";
@@ -6,6 +6,9 @@ import useCartContext from "../../context/CartContext/UseCartContext";
 import useCheckOutContext from "../../context/CheckOutContext/useCheckOutContext";
 
 const CartPage = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const {
     cartItems,
     DecreaseQuantity,

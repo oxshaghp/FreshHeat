@@ -4,8 +4,12 @@ import { FaFacebook, FaLinkedin, FaXTwitter, FaYoutube } from "react-icons/fa6";
 import { FaSearch } from "react-icons/fa";
 import { SlCalender } from "react-icons/sl";
 import Hero from "../../static/Hero";
+import { useEffect } from "react";
 
 function Blog() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const { id } = useParams();
   const { blogs } = useBlogContext();
 

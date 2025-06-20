@@ -10,6 +10,9 @@
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
 :root {
   --black: #000;
   --white: #fff;
