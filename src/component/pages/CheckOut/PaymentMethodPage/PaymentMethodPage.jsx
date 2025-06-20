@@ -2,15 +2,15 @@ import React, { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link, useNavigate } from "react-router-dom";
-import usePaymentContext from "../../../context/PaymentContext/UsePaymentContext";
-import Button from "../../../static/Button";
+import usePaymentContext from "/src/component/context/PaymentContext/UsePaymentContext";
+import Button from "/src/component/static/Button";
 const PaymentMethodPage = () => {
   const { paymentItems } = usePaymentContext();
   const [selectedCardId, setSelectedCardId] = useState(null);
   const navigate = useNavigate();
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []); 
+  }, []);
   const handleSubmitOrder = () => {
     if (!selectedCardId) {
       toast.error("Please select a payment method");

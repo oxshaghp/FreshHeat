@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import usePaymentContext from "../../context/PaymentContext/UsePaymentContext";
+import usePaymentContext from "/src/component/context/PaymentContext/UsePaymentContext";
 
 function PaymentPage() {
   const { paymentItems, handleAddCard, removeCard, card, setCard } =

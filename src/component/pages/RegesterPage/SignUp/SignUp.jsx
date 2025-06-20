@@ -72,6 +72,7 @@ function SignUp() {
 
       toast.success(`Welcome ${user.displayName}!`);
       window.location.href = "/";
+      // eslint-disable-next-line no-unused-vars
     } catch (error) {
       toast.error("Google sign-up failed.");
     }

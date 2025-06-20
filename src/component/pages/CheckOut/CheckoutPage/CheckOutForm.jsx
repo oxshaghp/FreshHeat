@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Button from "../../../static/Button";
-import { sendReceipt } from "../../../email";
-import useCartContext from "../../../context/CartContext/UseCartContext";
+import Button from "/src/component/static/Button";
+import { sendReceipt } from "/src/component/email";
+import useCartContext from "/src/component/context/CartContext/UseCartContext";
 const initialForm = {
   firstName: "",
   lastName: "",

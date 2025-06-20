@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import ContactInfo from "./ContactInfo";
 import FormSection from "./FormSection";
 import MapSec from "./MapSec/MapSec";
-import Hero from "../../static/Hero";
+import Hero from "/src/component/static/Hero";
 function ContactPage() {
   useEffect(() => {
     window.scrollTo(0, 0);

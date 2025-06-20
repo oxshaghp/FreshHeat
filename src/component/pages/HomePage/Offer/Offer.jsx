@@ -1,6 +1,6 @@
 import gsap from "gsap";
 import React, { useEffect, useRef } from "react";
-import Button from "../../../static/Button.jsx";
+import Button from "/src/component/static/Button.jsx";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 

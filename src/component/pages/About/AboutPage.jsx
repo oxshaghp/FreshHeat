@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
-import Hero from "../../static/Hero";
+import Hero from "/src/component/static/Hero";
 import CurdsFood from "./Curds Food/CurdsFood";
-import AboutSection from "../../static/AboutSection";
-import SpecialFood from "../../static/SpecialFood";
+import AboutSection from "/src/component/static/AboutSection";
+import SpecialFood from "/src/component/static/SpecialFood";
 import Chefs from "./Chefs/Chefs";
 import Customer from "./customer/Customer";
-import Gallery from "../../static/Gallery";
-import TextSlider from "../../static/TextSlider";
+import Gallery from "/src/component/static/Gallery";
+import TextSlider from "/src/component/static/TextSlider";
 function AboutPage() {
   useEffect(() => {
     window.scrollTo(0, 0);

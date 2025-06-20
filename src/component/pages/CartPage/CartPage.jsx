@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import Button from "../../static/Button";
+import Button from "/src/component/static/Button";
 import { TiDelete } from "react-icons/ti";
 import { Link } from "react-router-dom";
-import useCartContext from "../../context/CartContext/UseCartContext";
-import useCheckOutContext from "../../context/CheckOutContext/useCheckOutContext";
+import useCartContext from "/src/component/context/CartContext/UseCartContext";
+import useCheckOutContext from "/src/component/context/CheckOutContext/useCheckOutContext";
 
 const CartPage = () => {
   useEffect(() => {

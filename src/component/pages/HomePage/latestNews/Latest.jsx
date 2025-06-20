@@ -3,7 +3,7 @@ import { FaUser } from "react-icons/fa";
 import { GoArrowUpRight } from "react-icons/go";
 import { Link } from "react-router-dom";
 import "react-lazy-load-image-component/src/effects/blur.css";
-import useBlogContext from "../../../context/BlogContext/useBlogContext";
+import useBlogContext from "/src/component/context/BlogContext/useBlogContext";
 
 function Latest() {
   const { featuredBlogs } = useBlogContext();

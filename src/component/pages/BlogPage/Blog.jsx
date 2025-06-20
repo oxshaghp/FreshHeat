@@ -1,9 +1,9 @@
 import { useParams } from "react-router-dom";
-import useBlogContext from "../../context/BlogContext/useBlogContext";
+import useBlogContext from "/src/component/context/BlogContext/useBlogContext";
 import { FaFacebook, FaLinkedin, FaXTwitter, FaYoutube } from "react-icons/fa6";
 import { FaSearch } from "react-icons/fa";
 import { SlCalender } from "react-icons/sl";
-import Hero from "../../static/Hero";
+import Hero from "/src/component/static/Hero";
 import { useEffect } from "react";
 
 function Blog() {

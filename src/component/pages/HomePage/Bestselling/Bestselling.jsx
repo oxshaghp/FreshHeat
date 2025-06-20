@@ -1,10 +1,10 @@
 import React, { useRef, useEffect } from "react";
 import { FaHeart, FaShoppingCart } from "react-icons/fa";
-import Button from "../../../static/Button";
+import Button from "/src/component/static/Button";
 import gsap from "gsap";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
-import useCartContext from "../../../context/CartContext/UseCartContext";
+import useCartContext from "/src/component/context/CartContext/UseCartContext";
 const dishes = [
   {
     id: 1,

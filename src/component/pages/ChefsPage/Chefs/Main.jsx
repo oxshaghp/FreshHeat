@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import gsap from "gsap";
 import React, { useRef, useEffect } from "react";
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const chefs = [
   {
     name: "Ralph Edwards",

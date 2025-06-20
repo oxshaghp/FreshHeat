@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import Button from "../../../static/Button";
-import useCheckOutContext from "../../../context/CheckOutContext/useCheckOutContext";
-import useCartContext from "../../../context/CartContext/UseCartContext";
+import Button from "/src/component/static/Button";
+import useCheckOutContext from "/src/component/context/CheckOutContext/useCheckOutContext";
+import useCartContext from "/src/component/context/CartContext/UseCartContext";
 import CheckOutForm from "./CheckOutForm";
 
 const CheckoutPage = () => {
