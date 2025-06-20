@@ -1,7 +1,7 @@
 import emailjs from "@emailjs/browser";
 import { auth } from "../Config/Firebase";
 
-export const sendReceipt = async (cartItems) => {
+export const sendReceipt = async (cartItems, formData) => {
   const user = auth.currentUser;
   if (!user) return;
 
@@ -16,16 +16,24 @@ export const sendReceipt = async (cartItems) => {
     user_email: user.email,
     order_list: orderList,
     total: total.toFixed(2),
+
+    // 👇 New fields from your CheckOutForm
+    first_name: formData.firstName,
+    last_name: formData.lastName,
+    phone: formData.telephone,
+    address: formData.address,
+    city: formData.city,
   };
 
-  console.log("Sending receipt to:", user.email);
+  console.log("📧 Sending receipt to:", user.email);
+  console.log("Form data:", formData);
 
   try {
     const res = await emailjs.send(
-      "service_f4f0tfh", // ✅ Your working service ID
-      "template_gt7yl0j", // ✅ Your template ID
+      "service_f4f0tfh",
+      "template_gt7yl0j",
       templateParams,
-      "G-cVBPAdIKdMmXdC1" // ✅ Your public key (keep it safe)
+      "G-cVBPAdIKdMmXdC1"
     );
     console.log("✅ Email sent successfully:", res.status);
   } catch (error) {

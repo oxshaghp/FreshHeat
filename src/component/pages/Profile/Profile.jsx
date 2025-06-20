@@ -16,6 +16,9 @@ function Profile() {
   const [userData, setUserData] = useState(null);
   const [activeSection, setActiveSection] = useState("info");
   const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {

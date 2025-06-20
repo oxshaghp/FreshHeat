@@ -15,7 +15,7 @@ import Footer from "./static/Footer";
 import Blog from "./pages/BlogPage/Blog";
 import ChefDeteils from "./pages/ChefsPage/Chefs/ChefDeteils";
 import LogIn from "./pages/RegesterPage/LogIn/LogIn";
-import Profile from "./pages/Peofile/Profile";
+import Profile from "./pages/Profile/Profile";
 import SignUp from "./pages/RegesterPage/SignUp/SignUp";
 import CartPage from "./pages/CartPage/CartPage";
 import CheckoutPage from "./pages/CheckOut/CheckoutPage/CheckoutPage";

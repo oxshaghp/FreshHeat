@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Button from "../../../static/Button";
 import useCheckOutContext from "../../../context/CheckOutContext/useCheckOutContext";
@@ -8,9 +8,12 @@ import CheckOutForm from "./CheckOutForm";
 const CheckoutPage = () => {
   const { total, discount, finalTotal } = useCheckOutContext();
   const { cartItems } = useCartContext();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
-    <div className="max-w-[60%] mx-auto bg-white rounded-lg shadow-lg p-8 my-10">
+    <div className="lg:w-[60%] w-[95%] mx-auto bg-white rounded-lg shadow-lg p-8 my-10">
       <nav className="text-[var(--text)] text-lg mb-4 flex items-center gap-2 justify-center">
         <Link
           className="font-bold text-black hover:text-[var(--red)] transition duration-500"

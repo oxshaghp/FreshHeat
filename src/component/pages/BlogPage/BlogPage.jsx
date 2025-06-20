@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Hero from "../../static/Hero";
 import BlogCard from "./BlogCard";
 import useBlogContext from "../../context/BlogContext/useBlogContext";
 function BlogPage() {
   const { blogs } = useBlogContext();
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div>
       <Hero title={"Blog"} left={"Home"} right={"Blog"} />

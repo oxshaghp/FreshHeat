@@ -1,14 +1,18 @@
 import { createContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { db, auth } from "/src/Config/Firebase";
-import { doc, setDoc, getDoc } from "firebase/firestore";
-import { onAuthStateChanged } from "firebase/auth";
+import { auth, db } from "/src/Config/Firebase";
+import {
+  collection,
+  addDoc,
+  getDocs,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
 
 const PaymentContext = createContext();
 
 export const PaymentProvider = ({ children }) => {
   const [paymentItems, setPaymentItems] = useState([]);
-  const [user, setUser] = useState(null);
   const [card, setCard] = useState({
     name: "",
     number: "",
@@ -16,69 +20,83 @@ export const PaymentProvider = ({ children }) => {
     cvv: "",
   });
 
-  // Listen for auth state changes and load paymentItems
+  // Fetch paymentItems from Firestore
+  const fetchPaymentItems = async () => {
+    const user = auth.currentUser;
+    if (!user) return;
+    try {
+      const paymentItemsRef = collection(db, "users", user.uid, "paymentItems");
+      const snapshot = await getDocs(paymentItemsRef);
+      const savedPaymentItems = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setPaymentItems(savedPaymentItems);
+      localStorage.setItem("paymentItems", JSON.stringify(savedPaymentItems));
+    } catch (error) {
+      console.error("Error fetching paymentItems:", error);
+    }
+  };
+
+  // On mount, try to load from localStorage first for fast access
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-      setUser(currentUser);
-      if (currentUser) {
-        const localData = localStorage.getItem(
-          `paymentItems_${currentUser.uid}`
-        );
-        if (localData) {
-          setPaymentItems(JSON.parse(localData));
-        } else {
-          const paymentRef = doc(db, "users", currentUser.uid);
-          const paymentSnap = await getDoc(paymentRef);
-          if (paymentSnap.exists() && paymentSnap.data().paymentItems) {
-            setPaymentItems(paymentSnap.data().paymentItems);
-          }
-        }
-      } else {
-        // If not logged in, fallback to generic localStorage
-        const storedPayment = localStorage.getItem("paymentItems");
-        setPaymentItems(storedPayment ? JSON.parse(storedPayment) : []);
-      }
-    });
-    return () => unsubscribe();
+    const storedPayment = localStorage.getItem("paymentItems");
+    setPaymentItems(storedPayment ? JSON.parse(storedPayment) : []);
+    fetchPaymentItems(); // Always sync with Firestore after
   }, []);
 
-  // Save to Firestore and localStorage when paymentItems or user changes
-  useEffect(() => {
-    if (user) {
-      const paymentRef = doc(db, "users", user.uid);
-      setDoc(paymentRef, { paymentItems }, { merge: true });
-      localStorage.setItem(
-        `paymentItems_${user.uid}`,
-        JSON.stringify(paymentItems)
-      );
-    } else {
-      localStorage.setItem("paymentItems", JSON.stringify(paymentItems));
+  // Add card to Firestore and localStorage
+  const handleAddCard = async (e) => {
+    if (e) e.preventDefault();
+    const user = auth.currentUser;
+    if (!user) {
+      toast.error("You must be logged in to add a card.");
+      return;
     }
-  }, [paymentItems, user]);
-
-  const handleAddCard = (e) => {
-    e.preventDefault();
     if (card.name && card.number && card.expiration && card.cvv) {
       const newCard = {
-        id: Date.now(),
         name: card.name,
         number: card.number,
         expiration: card.expiration,
         cvv: card.cvv,
         type: "VISA",
       };
-      setPaymentItems((prev) => [...prev, newCard]);
-      setCard({ name: "", number: "", expiration: "", cvv: "" });
+      try {
+        const paymentItemsRef = collection(db, "users", user.uid, "paymentItems");
+        const docRef = await addDoc(paymentItemsRef, newCard);
+        const newCardWithId = { ...newCard, id: docRef.id };
+        const updatedPaymentItems = [...paymentItems, newCardWithId];
+        setPaymentItems(updatedPaymentItems);
+        localStorage.setItem("paymentItems", JSON.stringify(updatedPaymentItems));
+        toast.success("Card added successfully!");
+        setCard({ name: "", number: "", expiration: "", cvv: "" });
+      } catch (error) {
+        toast.error("Failed to add card.");
+        console.error(error);
+      }
     }
   };
 
-  const removeCard = (cardId) => {
-    setPaymentItems((prev) => prev.filter((c) => c.id !== cardId));
-    toast.error("The Card Is Remove");
+  // Remove card from Firestore and localStorage
+  const removeCard = async (cardId) => {
+    const user = auth.currentUser;
+    if (!user) return;
+    try {
+      const cardDocRef = doc(db, "users", user.uid, "paymentItems", cardId);
+      await deleteDoc(cardDocRef);
+      const updatedPaymentItems = paymentItems.filter((c) => c.id !== cardId);
+      setPaymentItems(updatedPaymentItems);
+      localStorage.setItem("paymentItems", JSON.stringify(updatedPaymentItems));
+      toast.error("The Card Is Removed");
+    } catch (error) {
+      toast.error("Failed to remove card.");
+      console.error(error);
+    }
   };
 
   const clearPayments = () => {
     setPaymentItems([]);
+    localStorage.setItem("paymentItems", JSON.stringify([]));
     toast.error("All payments are removed");
   };
 

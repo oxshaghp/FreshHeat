@@ -1,46 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { auth, db } from "/src/Config/Firebase";
-import {
-  collection,
-  addDoc,
-  getDocs,
-  deleteDoc,
-  doc,
-} from "firebase/firestore";
+import React, { useState } from "react";
+import usePaymentContext from "../../context/PaymentContext/UsePaymentContext";
 
 function PaymentPage() {
-  const [card, setCard] = useState({
-    name: "",
-    number: "",
-    expiration: "",
-    cvv: "",
-    type: "VISA",
-  });
-  const [cards, setCards] = useState([]);
+  const { paymentItems, handleAddCard, removeCard, card, setCard } =
+    usePaymentContext();
+
   const [showAdd, setShowAdd] = useState(false);
-
-  // Get current user's UID
-  const user = auth.currentUser;
-
-  // Fetch saved cards from Firestore
-  const fetchCards = async () => {
-    if (!user) return;
-    try {
-      const cardsRef = collection(db, "users", user.uid, "cards");
-      const snapshot = await getDocs(cardsRef);
-      const savedCards = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setCards(savedCards);
-    } catch (error) {
-      console.error("Error fetching cards:", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchCards();
-  }, []);
 
   const formatCardNumber = (number) => {
     if (!number) return "0000 0000 0000 0000";
@@ -54,43 +19,20 @@ function PaymentPage() {
     setCard((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleAddCard = async (e) => {
+  const handleOnSubmit = (e) => {
     e.preventDefault();
-    if (!user) return;
-
-    try {
-      const cardData = {
-        ...card,
-        number: card.number.replace(/\s/g, ""), // Remove spaces before storing
-        createdAt: new Date(),
-      };
-      await addDoc(collection(db, "users", user.uid, "cards"), cardData);
-      setCard({ name: "", number: "", expiration: "", cvv: "", type: "VISA" });
-      setShowAdd(false);
-      fetchCards(); // refresh list
-    } catch (err) {
-      console.error("Error saving card:", err);
-    }
+    handleAddCard();
+    setShowAdd(false);
   };
-
-  const handleRemoveCard = async (cardId) => {
-    try {
-      await deleteDoc(doc(db, "users", user.uid, "cards", cardId));
-      setCards(cards.filter((c) => c.id !== cardId));
-    } catch (err) {
-      console.error("Error removing card:", err);
-    }
-  };
-
   return (
     <>
       <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
         Payment Methods
       </h2>
 
-      <div className="flex flex-col items-left gap-4 mb-6 w-[50%] mx-auto">
-        {cards.length > 0 ? (
-          cards.map((savedCard) => (
+      <div className="flex flex-col items-left gap-4 mb-6 lg:w-[50%] mx-auto">
+        {paymentItems.length > 0 ? (
+          paymentItems.map((savedCard) => (
             <div
               key={savedCard.id}
               className="flex items-center gap-4 border border-gray-200 rounded-lg p-4 bg-white"
@@ -105,7 +47,7 @@ function PaymentPage() {
                 </div>
               </div>
               <button
-                onClick={() => handleRemoveCard(savedCard.id)}
+                onClick={() => removeCard(savedCard.id)}
                 className="text-red-500 hover:text-red-700 text-sm"
               >
                 Remove
@@ -113,7 +55,9 @@ function PaymentPage() {
             </div>
           ))
         ) : (
-          <h3 className="text-gray-600 text-center">You have no cards saved</h3>
+          <h3 className="text-gray-600 text-center">
+            You have no paymentItems saved
+          </h3>
         )}
 
         <button
@@ -154,7 +98,7 @@ function PaymentPage() {
             </div>
 
             {/* Add Card Form */}
-            <form onSubmit={handleAddCard} className="flex flex-col gap-4">
+            <form onSubmit={handleOnSubmit} className="flex flex-col gap-4">
               <div className="flex gap-2">
                 <input
                   name="name"

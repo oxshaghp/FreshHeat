@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import {
   FaYoutube,
@@ -12,6 +12,9 @@ import { chefs } from "./Main";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
 function ChefDetails() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const { name } = useParams();
   const chef = chefs.find((c) => c.name === name);
   const otherChefs = chefs.filter((c) => c.name !== name);

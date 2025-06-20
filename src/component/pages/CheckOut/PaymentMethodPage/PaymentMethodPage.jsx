@@ -1,23 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link, useNavigate } from "react-router-dom";
 import usePaymentContext from "../../../context/PaymentContext/UsePaymentContext";
 import Button from "../../../static/Button";
-import { sendReceipt } from "../../../email";
-import useCartContext from "../../../context/CartContext/UseCartContext";
-
 const PaymentMethodPage = () => {
   const { paymentItems } = usePaymentContext();
   const [selectedCardId, setSelectedCardId] = useState(null);
-  const { cartItems } = useCartContext();
-
-  const handleSubmit = () => {
-    sendReceipt(cartItems);
-    alert("Order placed! Check your email for a receipt.");
-  };
   const navigate = useNavigate();
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []); 
   const handleSubmitOrder = () => {
     if (!selectedCardId) {
       toast.error("Please select a payment method");
@@ -39,7 +32,7 @@ const PaymentMethodPage = () => {
     }, 3000);
   };
   return (
-    <div className="max-w-[60%] mx-auto bg-white rounded-lg shadow-lg p-8 my-10">
+    <div className="lg:w-[60%] w-[95%] mx-auto bg-white rounded-lg shadow-lg p-8 my-10">
       <ToastContainer position="top-center" />
       <nav className="text-[var(--text)] text-lg mb-4 flex items-center gap-2 justify-center">
         <Link
@@ -74,8 +67,9 @@ const PaymentMethodPage = () => {
           <span className="text-xs mt-1">Billing Address</span>
         </div>
       </div>
+      {/* payment method section */}
       <div className="flex items-center justify-center">
-        <div className="w-full max-w-2xl bg-[#F4F1EA] rounded-xl shadow-lg p-8">
+        <div className="w-full bg-[#F4F1EA] rounded-xl shadow-lg p-8">
           <nav className="text-xs mb-4">
             <Link to="/profile" className="text-[var(--red)] hover:underline">
               Account
@@ -112,33 +106,27 @@ const PaymentMethodPage = () => {
                 </div>
               ))
             ) : (
-              <div>
+              <div className="flex flex-col items-center justify-center gap-4">
                 <h3 className="text-gray-600 text-center">
                   You have no cards saved
                 </h3>
-                <Button
-                  text="Add Payment Method"
-                  type="button"
-                  link="/profile"
-                />
+                <Button text="Add Payment" type="button" link="/profile" />
               </div>
             )}
           </div>
-          <div className="flex gap-4">
-            <button className="flex-1 py-2 rounded bg-[var(--black)] text-white cursor-pointer">
-              <Link to="/checkout">Back To Checkout</Link>
-            </button>
-            <button
-
-              onClick={handleSubmit}
-              className="flex-1 py-2 rounded bg-[var(--red)] text-white cursor-pointer"
-              className="flex-1 py-2 rounded bg-[var(--red)] text-white cursor-pointer"
-              onClick={handleSubmitOrder}
-
-            >
-              Submit
-            </button>
-          </div>
+          {paymentItems.length > 0 && (
+            <div className="flex gap-4">
+              <button className="flex-1 py-2 rounded bg-[var(--black)] text-white cursor-pointer">
+                <Link to="/checkout">Back To Checkout</Link>
+              </button>
+              <button
+                className="flex-1 py-2 rounded bg-[var(--red)] text-white cursor-pointer"
+                onClick={handleSubmitOrder}
+              >
+                Submit
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>
