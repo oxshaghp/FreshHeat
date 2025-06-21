@@ -37,14 +37,14 @@ function SpecialFood() {
       <img
         src="/specialFood/ctaShape1_1.png"
         alt="ghggh"
-        className="absolute left-2 top-2 hidden lg:block"
+        className="absolute left-2 top-2 w-8 h-8 lg:w-16 lg:h-16 xl:w-auto xl:h-auto"
         ref={floatingImageRef1}
         loading="lazy"
       />
       <img
         src="/specialFood/ctaShape1_2.png"
         alt=""
-        className="absolute left-0 bottom-2 hidden lg:block"
+        className="absolute left-0 bottom-2 w-8 h-8 lg:w-16 lg:h-16 xl:w-auto xl:h-auto"
         ref={floatingImageRef3}
         loading="lazy"
       />
@@ -75,7 +75,7 @@ function SpecialFood() {
       <img
         src="/specialFood/ctaShape1_3.png"
         alt=""
-        className="absolute right-0 bottom-2 hidden lg:block"
+        className="absolute right-0 bottom-2 w-8 h-8 lg:w-16 lg:h-16 xl:w-auto xl:h-auto"
         ref={floatingImageRef4}
         loading="lazy"
       />
