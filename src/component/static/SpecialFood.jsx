@@ -37,14 +37,14 @@ function SpecialFood() {
       <img
         src="/specialFood/ctaShape1_1.png"
         alt="ghggh"
-        className="absolute left-2 top-2 w-8 h-8 lg:w-16 lg:h-16 xl:w-auto xl:h-auto"
+        className="absolute left-2 top-2 hidden lg:block"
         ref={floatingImageRef1}
         loading="lazy"
       />
       <img
         src="/specialFood/ctaShape1_2.png"
         alt=""
-        className="absolute left-0 bottom-2 w-8 h-8 lg:w-16 lg:h-16 xl:w-auto xl:h-auto"
+        className="absolute left-0 bottom-2 hidden lg:block"
         ref={floatingImageRef3}
         loading="lazy"
       />
@@ -67,7 +67,7 @@ function SpecialFood() {
           src="/specialFood/ctaThumb1_1.png"
           alt="food image"
           effect="blur"
-          className="lg:w-[700px] w-[450px]"
+          className="lg:w-[700px] w-[300px]"
           ref={floatingImageRef2}
           loading="lazy"
         />
@@ -75,7 +75,7 @@ function SpecialFood() {
       <img
         src="/specialFood/ctaShape1_3.png"
         alt=""
-        className="absolute right-0 bottom-2 w-8 h-8 lg:w-16 lg:h-16 xl:w-auto xl:h-auto"
+        className="absolute right-0 bottom-2 hidden lg:block"
         ref={floatingImageRef4}
         loading="lazy"
       />

@@ -30,7 +30,7 @@ const testimonials = [
 
 function Testemonials() {
   return (
-    <section className="bg-[#181818] relative my-[5rem] flex items-center justify-center w-full h-[750px] p-10">
+    <section className="bg-[#181818] relative my-[5rem] flex items-center justify-center w-full h-[750px] p-4 md:p-10">
       <img
         src="../Home/testomonials/testimonialThumb1_1.png"
         alt="decorative background"
@@ -40,7 +40,7 @@ function Testemonials() {
 
       <div className="flex flex-col items-center justify-center text-center lg:relative lg:left-[35rem] absolute left-[50%] transform translate-x-[-50%]">
         <div className="mb-[2rem]">
-          <h3 className="font-bold text-[var(--orange)] relative flex items-center justify-center text-[1.2rem] gap-2">
+          <h3 className="font-bold text-[var(--orange)] relative flex items-center justify-center text-[1rem] md:text-[1.2rem] gap-2">
             <span>
               <img src="../Home/titleIcon.svg" alt="icon left" loading="lazy" />
             </span>
@@ -53,7 +53,7 @@ function Testemonials() {
               />
             </span>
           </h3>
-          <h1 className="font-bold text-[3rem] capitalize text-white">
+          <h1 className="font-bold text-[2rem] md:text-[3rem] capitalize text-white">
             What our Clients say
           </h1>
         </div>
@@ -63,12 +63,12 @@ function Testemonials() {
           loop={true}
           autoplay={{ delay: 3000, disableOnInteraction: false }}
           modules={[Autoplay]}
-          className="lg:w-[650px] w-[450px] rounded-[20px]"
+          className="lg:w-[650px] md:w-[500px] w-[90vw] max-w-[450px] rounded-[20px]"
         >
           {testimonials.map((t, idx) => (
             <SwiperSlide key={idx}>
-              <div className="bg-[var(--white)] border-t-2 border-t-[var(--orange)] h-[300px] rounded-[20px] p-[2rem] flex flex-col justify-center gap-5">
-                <div className="flex items-center gap-5 mb-[1rem]">
+              <div className="bg-[var(--white)] border-t-2 border-t-[var(--orange)] h-[300px] rounded-[20px] p-[1rem] md:p-[2rem] flex flex-col justify-center gap-5">
+                <div className="flex items-center gap-3 md:gap-5 mb-[1rem]">
                   <img
                     src={t.image}
                     alt={`${t.name} profile`}
@@ -76,21 +76,23 @@ function Testemonials() {
                     className="w-[100px] h-[100px] rounded-full object-cover"
                   />
                   <div className="flex flex-col items-start justify-center gap-1">
-                    <h1 className="font-bold text-3xl">{t.name}</h1>
-                    <h5 className="text-[var(--text)]">{t.role}</h5>
+                    <h1 className="font-bold text-xl md:text-3xl">{t.name}</h1>
+                    <h5 className="text-[var(--text)] text-sm md:text-base">
+                      {t.role}
+                    </h5>
                     <div className="flex items-center gap-2">
                       {[...Array(5)].map((_, i) => (
                         <span
                           key={i}
                           className={i < t.stars ? "text-[var(--orange)]" : ""}
                         >
-                          <FaStar />
+                          <FaStar className="text-sm md:text-base" />
                         </span>
                       ))}
                     </div>
                   </div>
                 </div>
-                <p className="text-[var(--text)] lg:text-[1.5rem] text-[1rem] text-left">
+                <p className="text-[var(--text)] text-sm md:text-base lg:text-[1.5rem] text-left">
                   {t.text}
                 </p>
               </div>
