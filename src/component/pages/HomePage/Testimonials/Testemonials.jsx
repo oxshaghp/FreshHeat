@@ -63,21 +63,23 @@ function Testemonials() {
           loop={true}
           autoplay={{ delay: 3000, disableOnInteraction: false }}
           modules={[Autoplay]}
-          className="lg:w-[650px] md:w-[500px] w-[90vw] max-w-[450px] rounded-[20px]"
+          className="lg:w-[750px] xl:w-[850px] 2xl:w-[950px] w-[90vw] max-w-[450px] rounded-[20px] p-4"
         >
           {testimonials.map((t, idx) => (
             <SwiperSlide key={idx}>
-              <div className="bg-[var(--white)] border-t-2 border-t-[var(--orange)] h-[300px] rounded-[20px] p-[1rem] md:p-[2rem] flex flex-col justify-center gap-5">
-                <div className="flex items-center gap-3 md:gap-5 mb-[1rem]">
+              <div className="bg-[var(--white)] border-t-2 p-6 md:p-8 lg:p-10 xl:p-12 border-t-[var(--orange)] h-auto min-h-[300px] lg:min-h-[350px] xl:min-h-[400px] rounded-[20px] flex flex-col justify-center gap-5">
+                <div className="flex items-center gap-3 md:gap-5 mb-[1rem] mt-5">
                   <img
                     src={t.image}
                     alt={`${t.name} profile`}
                     loading="lazy"
-                    className="w-[100px] h-[100px] rounded-full object-cover"
+                    className="w-[50px] h-[50px] md:w-[60px] md:h-[60px] lg:w-[70px] lg:h-[70px] rounded-full object-cover"
                   />
                   <div className="flex flex-col items-start justify-center gap-1">
-                    <h1 className="font-bold text-xl md:text-3xl">{t.name}</h1>
-                    <h5 className="text-[var(--text)] text-sm md:text-base">
+                    <h1 className="font-bold text-xl md:text-2xl lg:text-3xl xl:text-4xl">
+                      {t.name}
+                    </h1>
+                    <h5 className="text-[var(--text)] text-sm md:text-base lg:text-lg xl:text-xl">
                       {t.role}
                     </h5>
                     <div className="flex items-center gap-2">
@@ -86,13 +88,13 @@ function Testemonials() {
                           key={i}
                           className={i < t.stars ? "text-[var(--orange)]" : ""}
                         >
-                          <FaStar className="text-sm md:text-base" />
+                          <FaStar className="text-sm md:text-base lg:text-lg xl:text-xl" />
                         </span>
                       ))}
                     </div>
                   </div>
                 </div>
-                <p className="text-[var(--text)] text-sm md:text-base lg:text-[1.5rem] text-left">
+                <p className="text-[var(--text)] text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl text-left leading-relaxed">
                   {t.text}
                 </p>
               </div>
