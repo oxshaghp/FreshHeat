@@ -33,16 +33,16 @@ function SpecialFood() {
   }, []);
 
   return (
-    <section className="my-10 w-full h-[600px] relative bg-[url('./backGround/ctaBG1_1.jpg')] bg-cover bg-no-repeat bg-center">
+    <section className="my-10 w-full h-[600px] relative bg-[url('/backGround/ctaBG1_1.jpg')] bg-cover bg-no-repeat bg-center">
       <img
-        src="../specialFood/ctaShape1_1.png"
-        alt=""
+        src="/specialFood/ctaShape1_1.png"
+        alt="ghggh"
         className="absolute left-2 top-2 hidden lg:block"
         ref={floatingImageRef1}
         loading="lazy"
       />
       <img
-        src="../specialFood/ctaShape1_2.png"
+        src="/specialFood/ctaShape1_2.png"
         alt=""
         className="absolute left-0 bottom-2 hidden lg:block"
         ref={floatingImageRef3}
@@ -64,7 +64,7 @@ function SpecialFood() {
           <Button text="Order Now" link="/shop" />
         </div>
         <img
-          src="../specialFood/ctaThumb1_1.png"
+          src="/specialFood/ctaThumb1_1.png"
           alt="food image"
           effect="blur"
           className="lg:w-[700px] w-[450px]"
@@ -73,7 +73,7 @@ function SpecialFood() {
         />
       </div>
       <img
-        src="../specialFood/ctaShape1_3.png"
+        src="/specialFood/ctaShape1_3.png"
         alt=""
         className="absolute right-0 bottom-2 hidden lg:block"
         ref={floatingImageRef4}
