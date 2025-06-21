@@ -66,7 +66,7 @@ function LogIn() {
       <div className="xl:-ml-24">
         <LazyLoadImage
           effect="blur"
-          src="/public/Contact/contactThumb2_1.png"
+          src="/Contact/contactThumb2_1.png"
           alt="Contact"
         />
       </div>

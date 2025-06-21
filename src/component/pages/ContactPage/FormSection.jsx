@@ -48,7 +48,7 @@ function FormSection() {
       <div className="xl:-ml-24">
         <img
           effect="blur"
-          src="/public/Contact/contactThumb2_1.png"
+          src="/Contact/contactThumb2_1.png"
           alt="Contact"
           loading="lazy"
         />

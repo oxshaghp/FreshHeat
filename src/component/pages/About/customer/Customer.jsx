@@ -135,12 +135,12 @@ function Customer({ marginTop = "mt-40", marginBottom = "mb-40" }) {
 
       {/* Decorative Images */}
       <img
-        src="/public/About/Testimonials/chili-shape.png"
+        src="/About/Testimonials/chili-shape.png"
         alt="img"
         className="absolute top-0 right-0 hidden xl:block"
       />
       <img
-        src="/public/About/Testimonials/vagetable-shape.png"
+        src="/About/Testimonials/vagetable-shape.png"
         alt="img"
         className="absolute bottom-0 left-0 hidden xl:block"
       />

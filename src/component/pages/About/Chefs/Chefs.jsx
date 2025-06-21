@@ -11,19 +11,19 @@ function Chefs() {
       id: 1,
       name: "Devon Lane",
       des: "President of Sales",
-      img: "/public/About/chefs/chefeThumb2_1.jpg",
+      img: "/About/chefs/chefeThumb2_1.jpg",
     },
     {
       id: 2,
       name: "Ralph Edwards",
       des: "Chefe Manager",
-      img: "/public/About/chefs/chefeThumb2_2.jpg",
+      img: "/About/chefs/chefeThumb2_2.jpg",
     },
     {
       id: 3,
       name: "Marvin McKinney",
       des: "Main Chefe",
-      img: "/public/About/chefs/chefeThumb2_3.jpg",
+      img: "/About/chefs/chefeThumb2_3.jpg",
     },
   ];
 
@@ -115,10 +115,10 @@ function Chefs() {
 
       {/* Two Img Animated */}
       <div className="hidden xl:block absolute top-5 left-0" ref={img1Ref}>
-        <img src="/public/About/chefs/chefeShape2_1.png" alt="img" />
+        <img src="/About/chefs/chefeShape2_1.png" alt="img" />
       </div>
       <div className="hidden xl:block absolute right-6 bottom-1" ref={img2Ref}>
-        <img src="/public/About/chefs/chefeShape2_2.png" alt="img" />
+        <img src="/About/chefs/chefeShape2_2.png" alt="img" />
       </div>
     </section>
   );
