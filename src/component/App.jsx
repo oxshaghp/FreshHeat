@@ -19,37 +19,34 @@ import Profile from "./pages/Profile/Profile";
 import SignUp from "./pages/RegesterPage/SignUp/SignUp";
 import CartPage from "./pages/CartPage/CartPage";
 import CheckoutPage from "./pages/CheckOut/CheckoutPage/CheckoutPage";
-import { AppProvider } from "./context/AppContext/AppContext";
 import PaymentMethodPage from "./pages/CheckOut/PaymentMethodPage/PaymentMethodPage";
 
 function App() {
   return (
-    <AppProvider>
-      <BrowserRouter>
-        <Header />
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/ourStory/chef" element={<ChefPage />} />
-          <Route path="/ourStory/services" element={<ServicesPage />} />
-          <Route path="/ourStory/gallery" element={<GalleryPage />} />
-          <Route path="/ourStory/blogs" element={<BlogPage />} />
-          <Route path="/ourStory/blogs/:id" element={<Blog />} />
-          <Route path="/foodMenu" element={<FoodMenu />} />
-          <Route path="/shop" element={<ShopPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/chef/:name" element={<ChefDeteils />} />
-          <Route path="/login" element={<LogIn />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/cart" element={<CartPage />} />
-          <Route path="/checkout" element={<CheckoutPage />} />
-          <Route path="/payment-method" element={<PaymentMethodPage />} />
-        </Routes>
-        <Footer />
-      </BrowserRouter>
-    </AppProvider>
+    <BrowserRouter>
+      <Header />
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/ourStory/chef" element={<ChefPage />} />
+        <Route path="/ourStory/services" element={<ServicesPage />} />
+        <Route path="/ourStory/gallery" element={<GalleryPage />} />
+        <Route path="/ourStory/blogs" element={<BlogPage />} />
+        <Route path="/ourStory/blogs/:id" element={<Blog />} />
+        <Route path="/foodMenu" element={<FoodMenu />} />
+        <Route path="/shop" element={<ShopPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/chef/:name" element={<ChefDeteils />} />
+        <Route path="/login" element={<LogIn />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/cart" element={<CartPage />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/payment-method" element={<PaymentMethodPage />} />
+      </Routes>
+      <Footer />
+    </BrowserRouter>
   );
 }
 

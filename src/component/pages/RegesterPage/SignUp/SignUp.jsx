@@ -72,9 +72,26 @@ function SignUp() {
 
       toast.success(`Welcome ${user.displayName}!`);
       window.location.href = "/";
-      // eslint-disable-next-line no-unused-vars
     } catch (error) {
-      toast.error("Google sign-up failed.");
+      console.error("Google sign-up error:", error);
+
+      if (error.code === "auth/popup-closed-by-user") {
+        toast.error("تم إغلاق نافذة تسجيل الدخول. يرجى المحاولة مرة أخرى.");
+      } else if (error.code === "auth/popup-blocked") {
+        toast.error(
+          "تم حظر النافذة المنبثقة. يرجى السماح بالنوافذ المنبثقة لهذا الموقع."
+        );
+      } else if (error.code === "auth/unauthorized-domain") {
+        toast.error(
+          "هذا النطاق غير مسموح به. يرجى التحقق من إعدادات Firebase."
+        );
+      } else if (error.code === "auth/network-request-failed") {
+        toast.error(
+          "مشكلة في الاتصال بالشبكة. يرجى التحقق من اتصالك بالإنترنت."
+        );
+      } else {
+        toast.error(`فشل تسجيل الدخول بـ Google: ${error.message}`);
+      }
     }
   };
 

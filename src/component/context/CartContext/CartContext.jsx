@@ -1,44 +1,92 @@
 import { createContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { db, auth } from "/src/Config/Firebase";
+import { db } from "/src/Config/Firebase";
 import { doc, setDoc, getDoc } from "firebase/firestore";
-import { onAuthStateChanged } from "firebase/auth";
+import useAppContext from "../AppContext/useAppContext";
 
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState([]); 
-  const [user, setUser] = useState(null);
+  const [cartItems, setCartItems] = useState([]);
+  const { currentUser } = useAppContext();
 
+  // Effect to handle user authentication changes (login/logout)
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-      setUser(currentUser);
-
+    const handleAuthChange = async () => {
       if (currentUser) {
-        const localData = localStorage.getItem(`cartItems_${currentUser.uid}`);
-        if (localData) {
-          setCartItems(JSON.parse(localData));
+        // User is logged in
+        const localCart = localStorage.getItem("localCart");
+        const localCartItems = localCart ? JSON.parse(localCart) : [];
+
+        const cartRef = doc(db, "users", currentUser.uid);
+        const cartSnap = await getDoc(cartRef);
+        const userCartItems =
+          cartSnap.exists() && cartSnap.data().cartItems
+            ? cartSnap.data().cartItems
+            : [];
+
+        // Merge local cart with user's Firestore cart
+        const mergedCart = [...userCartItems];
+        if (localCartItems.length > 0) {
+          localCartItems.forEach((localItem) => {
+            const existingItem = mergedCart.find(
+              (item) => item.id === localItem.id
+            );
+            if (existingItem) {
+              existingItem.quantity += localItem.quantity;
+            } else {
+              mergedCart.push(localItem);
+            }
+          });
+          toast.success("Your cart has been merged!");
+        }
+
+        setCartItems(mergedCart);
+
+        // Save merged cart to Firestore
+        if (mergedCart.length > 0) {
+          await setDoc(cartRef, { cartItems: mergedCart }, { merge: true });
+        }
+
+        // Clear local cart
+        localStorage.removeItem("localCart");
+      } else {
+        // User is logged out, load the local cart
+        const localCart = localStorage.getItem("localCart");
+        if (localCart) {
+          setCartItems(JSON.parse(localCart));
         } else {
-          const cartRef = doc(db, "users", currentUser.uid);
-          const cartSnap = await getDoc(cartRef);
-          if (cartSnap.exists() && cartSnap.data().cartItems) {
-            setCartItems(cartSnap.data().cartItems);
-          }
+          setCartItems([]);
         }
       }
-    });
+    };
 
-    return () => unsubscribe();
+    handleAuthChange();
+  }, [currentUser]);
+
+  // Effect to load initial cart for guest users
+  useEffect(() => {
+    if (!currentUser) {
+      const localCart = localStorage.getItem("localCart");
+      if (localCart) {
+        setCartItems(JSON.parse(localCart));
+      }
+    }
   }, []);
 
-  // حفظ البيانات في Firestore و localStorage المرتبط بالمستخدم
+  // Effect to save cart changes
   useEffect(() => {
-    if (user) {
-      const cartRef = doc(db, "users", user.uid);
-      setDoc(cartRef, { cartItems }, { merge: true });
-      localStorage.setItem(`cartItems_${user.uid}`, JSON.stringify(cartItems));
+    if (currentUser) {
+      // Save to Firestore for logged-in users
+      if (cartItems.length > 0) {
+        const cartRef = doc(db, "users", currentUser.uid);
+        setDoc(cartRef, { cartItems }, { merge: true });
+      }
+    } else {
+      // Save to localStorage for guest users
+      localStorage.setItem("localCart", JSON.stringify(cartItems));
     }
-  }, [cartItems, user]);
+  }, [cartItems, currentUser]);
 
   const AddToCart = (item) => {
     setCartItems((prev) => {
@@ -64,6 +112,10 @@ export const CartProvider = ({ children }) => {
 
   const ClearCart = () => {
     setCartItems([]);
+    if (currentUser) {
+      const cartRef = doc(db, "users", currentUser.uid);
+      setDoc(cartRef, { cartItems: [] }, { merge: true });
+    }
     toast.error("The Cart Has Been Cleared");
   };
 
@@ -96,6 +148,7 @@ export const CartProvider = ({ children }) => {
         ClearCart,
         IncreaseQuantity,
         DecreaseQuantity,
+        user: currentUser, // Pass user state for components that need it
       }}
     >
       {children}

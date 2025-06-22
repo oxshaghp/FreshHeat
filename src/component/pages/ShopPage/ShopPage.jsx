@@ -4,11 +4,11 @@ import { FaSearch } from "react-icons/fa";
 import gsap from "gsap";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { FaStar } from "react-icons/fa6";
-import { Link, Navigate } from "react-router-dom";
-import { getAuth } from "firebase/auth";
+import { Link } from "react-router-dom";
 import useCartContext from "../../context/CartContext/UseCartContext";
 import useAppContext from "../../context/AppContext/useAppContext";
 import { ToastContainer } from "react-toastify";
+
 function ShopPage() {
   const borderRefs = useRef([]);
   const { menuItems } = useAppContext();
@@ -23,8 +23,7 @@ function ShopPage() {
   const currentItems = filteredItems.slice(startIndex, endIndex);
 
   const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
-  const auth = getAuth();
-  const { currentUser } = useAppContext();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -53,9 +52,6 @@ function ShopPage() {
     max: 1000,
   });
 
-  if (!currentUser) {
-    return <Navigate to="/login" />;
-  }
   return (
     <section>
       <ToastContainer position="top-center" />

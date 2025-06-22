@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import Button from "/src/component/static/Button";
 import useCheckOutContext from "/src/component/context/CheckOutContext/useCheckOutContext";
 import useCartContext from "/src/component/context/CartContext/UseCartContext";
@@ -7,10 +7,60 @@ import CheckOutForm from "./CheckOutForm";
 
 const CheckoutPage = () => {
   const { total, discount, finalTotal } = useCheckOutContext();
-  const { cartItems } = useCartContext();
+  const { cartItems, user } = useCartContext();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  // إذا لم يكن المستخدم مسجل دخول، اعرض رسالة تسجيل الدخول
+  if (!user) {
+    return (
+      <div className="lg:w-[60%] w-[95%] mx-auto bg-white rounded-lg shadow-lg p-8 my-10">
+        <nav className="text-[var(--text)] text-lg mb-4 flex items-center gap-2 justify-center">
+          <Link
+            className="font-bold text-black hover:text-[var(--red)] transition duration-500"
+            to="/"
+          >
+            Home
+          </Link>
+          &gt;
+          <Link
+            className="font-bold text-black hover:text-[var(--red)] transition duration-500"
+            to="/cart"
+          >
+            Cart
+          </Link>
+          &gt;
+          <span>Checkout</span>
+        </nav>
+
+        <div className="text-center py-12">
+          <h1 className="text-3xl font-semibold mb-4 text-[var(--red)]">
+            Login Required
+          </h1>
+          <p className="text-lg text-gray-600 mb-6">
+            Please log in to complete your purchase. Your cart items will be
+            saved.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              to="/login"
+              className="bg-[var(--red)] text-white px-8 py-3 rounded-full hover:bg-red-700 transition duration-300"
+            >
+              Login
+            </Link>
+            <Link
+              to="/signup"
+              className="bg-gray-200 text-gray-800 px-8 py-3 rounded-full hover:bg-gray-300 transition duration-300"
+            >
+              Sign Up
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="lg:w-[60%] w-[95%] mx-auto bg-white rounded-lg shadow-lg p-8 my-10">

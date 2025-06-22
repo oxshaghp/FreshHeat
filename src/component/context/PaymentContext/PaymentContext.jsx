@@ -8,6 +8,7 @@ import {
   deleteDoc,
   doc,
 } from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
 
 const PaymentContext = createContext();
 
@@ -20,10 +21,12 @@ export const PaymentProvider = ({ children }) => {
     cvv: "",
   });
 
-  // Fetch paymentItems from Firestore
-  const fetchPaymentItems = async () => {
-    const user = auth.currentUser;
-    if (!user) return;
+  // Fetch paymentItems from Firestore for the given user
+  const fetchPaymentItems = async (user) => {
+    if (!user) {
+      setPaymentItems([]);
+      return;
+    }
     try {
       const paymentItemsRef = collection(db, "users", user.uid, "paymentItems");
       const snapshot = await getDocs(paymentItemsRef);
@@ -32,20 +35,27 @@ export const PaymentProvider = ({ children }) => {
         ...doc.data(),
       }));
       setPaymentItems(savedPaymentItems);
-      localStorage.setItem("paymentItems", JSON.stringify(savedPaymentItems));
     } catch (error) {
       console.error("Error fetching paymentItems:", error);
     }
   };
 
-  // On mount, try to load from localStorage first for fast access
   useEffect(() => {
-    const storedPayment = localStorage.getItem("paymentItems");
-    setPaymentItems(storedPayment ? JSON.parse(storedPayment) : []);
-    fetchPaymentItems(); // Always sync with Firestore after
-  }, []);
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in.
+        fetchPaymentItems(user);
+      } else {
+        // User is signed out.
+        setPaymentItems([]);
+      }
+    });
 
-  // Add card to Firestore and localStorage
+    // Cleanup subscription on unmount
+    return () => unsubscribe();
+  }, []); // Empty dependency array ensures this runs only once on mount.
+
+  // Add card to Firestore
   const handleAddCard = async (e) => {
     if (e) e.preventDefault();
     const user = auth.currentUser;
@@ -62,12 +72,16 @@ export const PaymentProvider = ({ children }) => {
         type: "VISA",
       };
       try {
-        const paymentItemsRef = collection(db, "users", user.uid, "paymentItems");
+        const paymentItemsRef = collection(
+          db,
+          "users",
+          user.uid,
+          "paymentItems"
+        );
         const docRef = await addDoc(paymentItemsRef, newCard);
         const newCardWithId = { ...newCard, id: docRef.id };
-        const updatedPaymentItems = [...paymentItems, newCardWithId];
-        setPaymentItems(updatedPaymentItems);
-        localStorage.setItem("paymentItems", JSON.stringify(updatedPaymentItems));
+        setPaymentItems((prevItems) => [...prevItems, newCardWithId]);
+
         toast.success("Card added successfully!");
         setCard({ name: "", number: "", expiration: "", cvv: "" });
       } catch (error) {
@@ -77,7 +91,7 @@ export const PaymentProvider = ({ children }) => {
     }
   };
 
-  // Remove card from Firestore and localStorage
+  // Remove card from Firestore
   const removeCard = async (cardId) => {
     const user = auth.currentUser;
     if (!user) return;
@@ -86,18 +100,11 @@ export const PaymentProvider = ({ children }) => {
       await deleteDoc(cardDocRef);
       const updatedPaymentItems = paymentItems.filter((c) => c.id !== cardId);
       setPaymentItems(updatedPaymentItems);
-      localStorage.setItem("paymentItems", JSON.stringify(updatedPaymentItems));
       toast.error("The Card Is Removed");
     } catch (error) {
       toast.error("Failed to remove card.");
       console.error(error);
     }
-  };
-
-  const clearPayments = () => {
-    setPaymentItems([]);
-    localStorage.setItem("paymentItems", JSON.stringify([]));
-    toast.error("All payments are removed");
   };
 
   return (
@@ -106,7 +113,6 @@ export const PaymentProvider = ({ children }) => {
         paymentItems,
         handleAddCard,
         removeCard,
-        clearPayments,
         card,
         setCard,
       }}

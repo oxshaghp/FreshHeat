@@ -6,17 +6,20 @@ import { CartProvider } from "./component/context/CartContext/CartContext.jsx";
 import { BlogProvider } from "./component/context/BlogContext/BlogContext.jsx";
 import { CheckOutContextProvider } from "./component/context/CheckOutContext/CheckOutContext.jsx";
 import { PaymentProvider } from "./component/context/PaymentContext/PaymentContext.jsx";
+import { AppProvider } from "./component/context/AppContext/AppContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <CartProvider>
-      <BlogProvider>
-        <PaymentProvider>
-          <CheckOutContextProvider>
-            <App />
-          </CheckOutContextProvider>
-        </PaymentProvider>
-      </BlogProvider>
-    </CartProvider>
+    <AppProvider>
+      <CartProvider>
+        <BlogProvider>
+          <PaymentProvider>
+            <CheckOutContextProvider>
+              <App />
+            </CheckOutContextProvider>
+          </PaymentProvider>
+        </BlogProvider>
+      </CartProvider>
+    </AppProvider>
   </StrictMode>
 );
